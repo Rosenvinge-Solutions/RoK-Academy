@@ -1,0 +1,118 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>RoK Academy - Answers to your questions</PageTitle>
+
+<form class="form-floating">
+    <input id="questionInput" class="form-control form-control-lg" type="text" placeholder="First general of the Edo shogunate?" aria-label="Question input" @onchange="@FindQuestionOrAnswer">
+    <label for="questionInput" class="text-dark">Insert part of- or full question</label>
+    <div id="questionHelp" class="form-text text-start">The more specific, the faster your search query will be.</div>
+</form>
+
+<div class="table-responsive table-responsive-sm my-3">
+    @if (loadingAnswer)
+    {
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+    else
+    {
+
+        <table class="table table-sm table-light table-hover table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Answer(s)</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @if (answers is null)
+                {
+                    <tr>
+                        <th>Loading answers...</th>
+                    </tr>
+                }
+                else
+                {
+
+                    @if (answers.Count() == 0)
+                    {
+                        <tr>
+                            <th>1</th>
+                            <td>No answer found.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @for (int i = 0; i < answers.Count(); i++)
+                        {
+                            <tr>
+                                <th scope="row">@(i + 1)</th>
+                                <td>@answers.ElementAt(i)</td>
+                            </tr>
+                        }
+
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
+
+
+@code {
+    private IReadOnlyDictionary<string, string>? questionsWithAnswers;
+    private IEnumerable<string>? answers = Enumerable.Empty<string>();
+    private bool loadingAnswer = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeData();
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task InitializeData()
+    {
+        Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>("data/questions.json");
+
+        questionsWithAnswers = tempDict;
+    }
+
+    private async Task FindQuestionOrAnswer(ChangeEventArgs e)
+    {
+        if (questionsWithAnswers is null)
+        {
+            answers = Enumerable.Empty<string>();
+            return;
+        }
+
+        if (string.IsNullOrEmpty($"{e.Value}") || string.IsNullOrWhiteSpace($"{e.Value}"))
+        {
+            answers = Enumerable.Empty<string>();
+            return;
+        }
+
+        if ($"{e.Value}".Length < 5)
+        {
+            answers = Enumerable.Empty<string>();
+            return;
+        }
+
+        loadingAnswer = true;
+        _ = Task.Run(async () =>
+        {
+            answers = questionsWithAnswers.Where(q => q.Key.Contains($"{e.Value}", StringComparison.OrdinalIgnoreCase)).Select(a => a.Value);
+
+            await InvokeAsync(() => {
+                loadingAnswer = false;
+                StateHasChanged();
+            });
+        });
+
+        await Task.CompletedTask;
+    }
+}
+

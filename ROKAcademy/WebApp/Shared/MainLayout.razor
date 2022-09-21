@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<header class="mb-auto">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light float-md-start mb-0 py-1 px-0" href="#">
+                <img src="unnamed.jpg" alt="Bootstrap" height="50">
+                RoK Academy
+            </a>
+            <div class="nav nav-masthead justify-content-center float-md-end">
+                <NavLink Match="NavLinkMatch.All" class="nav-link fw-bold py-1 px-0" href="#Lyceum of Wisdom">Lyceum of Wisdom</NavLink>
+            </div>
+            @*<h2 class="nav nav-masthead justify-content-center float-md-end">Lyceum of Wisdom</h2>*@
+            @*<h1 class="mb-3"></h1>*@
+        </div>
+    </nav>
+</header>
+
+<main class="px-3">
+    @Body
+</main>
+
+<footer class="mt-auto text-white-50">
+    <p>
+        This fansite does not belong to <a href="https://www.lilith.com/" class="text-white">Lilith Games</a>.
+        Rise of Kingdoms &copy; @todaysDate.Year
+    </p>
+</footer>
+
+@code {
+    private DateOnly todaysDate;
+
+    protected override void OnInitialized()
+    {
+        todaysDate = DateOnly.FromDateTime(DateTime.Now);
+
+        base.OnInitialized();
+    }
+}
