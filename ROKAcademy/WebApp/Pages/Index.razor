@@ -1,19 +1,19 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject IStringLocalizer<Index> Localization
 
-<PageTitle>RoK Academy - Answers to your questions</PageTitle>
+<PageTitle>RoK Academy - @Localization["PageTitle"]</PageTitle>
 
-<div class="form-floating">
+<div class="form-floating mb-3">
     <input id="questionInput"
            class="form-control form-control-lg"
            type="text"
-           placeholder="First general of the Edo shogunate?"
-           aria-label="Question input"
+           aria-label="@Localization["QuestionInputAriaLabel"]"
            disabled="@loadingAnswer"
            @onchange="@FindQuestionOrAnswerAsync">
 
-    <label for="questionInput" class="text-muted">Search for part of- or full question</label>
-    <div id="questionHelp" class="form-text text-start">The more specific, the faster your search query will be, and less possible answers.</div>
+    <label for="questionInput" class="text-muted">@Localization["InputPlaceholderText"]</label>
+    <div id="questionHelp" class="form-text text-start">@Localization["InputHelpText"]</div>
 </div>
 
 <div class="table-responsive table-responsive-md my-3">
@@ -33,10 +33,10 @@
                     {
                         if (answers.Count() is 0)
                         {
-                            <th scope="col">Questions</th>
+                            <th scope="col">@Localization["TableHeaderQuestionText"]</th>
                         }
                     }
-                    <th scope="col">Answer(s)</th>
+                    <th scope="col">@Localization["TableHeaderAnswerText"]</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -44,7 +44,7 @@
                 {
                     <tr>
                         <th>
-                            Loading data, please wait...
+                            @Localization["LoadingText"]
                         </th>
                         <th>
                             <div class="spinner-border text-light" role="status">
@@ -58,7 +58,7 @@
                     @if (answers is null)
                     {
                         <tr>
-                            <th>No answer associated with search query..</th>
+                            <th>@Localization["NoDataFoundText"]</th>
                         </tr>
                     }
                     else
@@ -87,7 +87,6 @@
             </tbody>
         </table>
     }
-
 </div>
 
 

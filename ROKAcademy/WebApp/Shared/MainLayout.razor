@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IStringLocalizer<MainLayout> Localization
 
 <header class="mb-auto">
     <nav class="navbar">
@@ -8,7 +9,7 @@
                 RoK Academy
             </a>
             <div class="nav nav-masthead justify-content-center float-md-end">
-                <NavLink Match="NavLinkMatch.All" class="nav-link fw-bold py-1 px-0" href="#Lyceum of Wisdom">Lyceum of Wisdom</NavLink>
+                <NavLink Match="NavLinkMatch.All" class="nav-link fw-bold py-1 px-0" href="#Lyceum of Wisdom">@Localization["Q&A"]</NavLink>
             </div>
             @*<h2 class="nav nav-masthead justify-content-center float-md-end">Lyceum of Wisdom</h2>*@
             @*<h1 class="mb-3"></h1>*@
@@ -21,10 +22,15 @@
 </main>
 
 <footer class="mt-auto text-white-50">
-    <p>
-        This fansite does not belong to <a href="https://www.lilith.com/" class="text-white">Lilith Games</a>.
-        Rise of Kingdoms &copy; @todaysDate.Year
-    </p>
+    <div class="d-flex flex-wrap justify-content-start justify-content-lg-center">
+        <div class="p2 align-self-center">
+            <span class="d-sm-inline d-block">@Localization["Footer"] <a href="https://www.lilith.com/" class="text-white">Lilith Games</a>.</span>
+            <span class="d-sm-inline d-block">Rise of Kingdoms &copy; @todaysDate.Year</span>
+        </div>
+        <div class="p-2 ms-auto">
+            <LanguageSelector />
+        </div>
+    </div>
 </footer>
 
 @code {

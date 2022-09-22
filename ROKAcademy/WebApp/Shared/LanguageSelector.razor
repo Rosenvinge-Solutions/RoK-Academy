@@ -1,0 +1,96 @@
+﻿@implements IDisposable
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
+@inject IStringLocalizer<LanguageSelector> Localization
+
+@if (_supportedLanguages is null)
+{
+    <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else
+{
+    <select class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
+        @foreach (var culture in _supportedLanguages)
+        {
+            <option value=@culture.Code>
+                @if (_isMobileDeviceMode)
+                {
+                    @culture.Country
+                }
+                else
+                {
+                    @culture.DisplayName
+                }
+            </option>
+        }
+    </select>
+}
+
+@code {
+    private event EventHandler ?OnCultureChanged;
+
+    private Task<IJSObjectReference>? _cultureModule;
+    private IEnumerable<LanguageCodes> _supportedLanguages = Enumerable.Empty<LanguageCodes>();
+    private bool _isMobileDeviceMode = false;
+
+    public CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture.Equals(value)) return;
+
+            _ = Task.Run(async () =>
+            {
+                var module = await CultureModule;
+
+                await module.InvokeVoidAsync("setCulture", value.Name);
+
+                OnCultureChanged?.Invoke(this, EventArgs.Empty);
+            });
+        }
+    }
+
+    public Task<IJSObjectReference> CultureModule =>
+        _cultureModule ??= JsRuntime.InjectJsObjectReference("import", "./js/culture.js");
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JsRuntime.InvokeVoidAsync("setDotNetReferenceForLanguageSelector", DotNetObjectReference.Create(this));
+
+        OnCultureChanged += RefreshPageOnCultureChanged;
+
+        string[] englishCulture = Localization["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] germanCulture = Localization["GermanCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+
+        _supportedLanguages = new List<LanguageCodes>
+            {
+                new (code: englishCulture[0], displayName: englishCulture[1], country: "🇺🇸"),
+                new (code: germanCulture[0], displayName: germanCulture[1], country: "🇩🇪")
+            };
+
+        var module = await CultureModule;
+
+        Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));
+    }
+
+    private void RefreshPageOnCultureChanged(object? sender, EventArgs e)
+    {
+        NavManager.NavigateTo(NavManager.Uri, true);
+    }
+
+    public void Dispose()
+    {
+        OnCultureChanged -= RefreshPageOnCultureChanged;
+    }
+
+    [JSInvokable]
+    public void InitializeMobileDeviceMode(bool isMobile)
+    {
+        _isMobileDeviceMode = isMobile;
+
+        StateHasChanged();
+    }
+}
