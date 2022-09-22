@@ -3,13 +3,20 @@
 
 <PageTitle>RoK Academy - Answers to your questions</PageTitle>
 
-<form class="form-floating">
-    <input id="questionInput" class="form-control form-control-lg" type="text" placeholder="First general of the Edo shogunate?" aria-label="Question input" @onchange="@FindQuestionOrAnswer">
-    <label for="questionInput" class="text-dark">Insert part of- or full question</label>
-    <div id="questionHelp" class="form-text text-start">The more specific, the faster your search query will be.</div>
-</form>
+<div class="form-floating">
+    <input id="questionInput"
+           class="form-control form-control-lg"
+           type="text"
+           placeholder="First general of the Edo shogunate?"
+           aria-label="Question input"
+           disabled="@loadingAnswer"
+           @onchange="@FindQuestionOrAnswerAsync">
 
-<div class="table-responsive table-responsive-sm my-3">
+    <label for="questionInput" class="text-muted">Search for part of- or full question</label>
+    <div id="questionHelp" class="form-text text-start">The more specific, the faster your search query will be, and less possible answers.</div>
+</div>
+
+<div class="table-responsive table-responsive-md my-3">
     @if (loadingAnswer)
     {
         <div class="spinner-border text-light" role="status">
@@ -19,40 +26,62 @@
     else
     {
 
-        <table class="table table-sm table-light table-hover table-striped align-middle">
+        <table class="table table-lg table-dark table-hover table-striped align-middle">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    @if (answers is not null)
+                    {
+                        if (answers.Count() is 0)
+                        {
+                            <th scope="col">Questions</th>
+                        }
+                    }
                     <th scope="col">Answer(s)</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                @if (answers is null)
+                @if (questionsWithAnswers is null)
                 {
                     <tr>
-                        <th>Loading answers...</th>
+                        <th>
+                            Loading data, please wait...
+                        </th>
+                        <th>
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </th>
                     </tr>
                 }
                 else
                 {
-
-                    @if (answers.Count() == 0)
+                    @if (answers is null)
                     {
                         <tr>
-                            <th>1</th>
-                            <td>No answer found.</td>
+                            <th>No answer associated with search query..</th>
                         </tr>
                     }
                     else
                     {
-                        @for (int i = 0; i < answers.Count(); i++)
+                        @if (answers.Count() is 0)
                         {
-                            <tr>
-                                <th scope="row">@(i + 1)</th>
-                                <td>@answers.ElementAt(i)</td>
-                            </tr>
+                            @for (int i = 0; i < questionsWithAnswers.Count; i++)
+                            {
+                                <tr>
+                                    <td>@questionsWithAnswers.ElementAt(i).Key</td>
+                                    <td>@questionsWithAnswers.ElementAt(i).Value</td>
+                                </tr>
+                            }
                         }
-
+                        else
+                        {
+                            @for (int i = 0; i < answers.Count(); i++)
+                            {
+                                <tr>
+                                    <td>@answers.ElementAt(i)</td>
+                                </tr>
+                            }
+                        }
                     }
                 }
             </tbody>
@@ -69,19 +98,19 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await InitializeData();
+        await InitializeDataAsync();
 
         await base.OnInitializedAsync();
     }
 
-    private async Task InitializeData()
+    private async Task InitializeDataAsync()
     {
         Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>("data/questions.json");
 
         questionsWithAnswers = tempDict;
     }
 
-    private async Task FindQuestionOrAnswer(ChangeEventArgs e)
+    private async Task FindQuestionOrAnswerAsync(ChangeEventArgs e)
     {
         if (questionsWithAnswers is null)
         {
@@ -95,18 +124,13 @@
             return;
         }
 
-        if ($"{e.Value}".Length < 5)
-        {
-            answers = Enumerable.Empty<string>();
-            return;
-        }
-
         loadingAnswer = true;
         _ = Task.Run(async () =>
         {
             answers = questionsWithAnswers.Where(q => q.Key.Contains($"{e.Value}", StringComparison.OrdinalIgnoreCase)).Select(a => a.Value);
 
-            await InvokeAsync(() => {
+            await InvokeAsync(() =>
+            {
                 loadingAnswer = false;
                 StateHasChanged();
             });

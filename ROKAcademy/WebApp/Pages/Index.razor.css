@@ -1,3 +1,25 @@
 ﻿.table-responsive {
     max-height: 42rem !important;
+    padding-right: .25em;
 }
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: .5rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: .75em;
+    margin: 0 30px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--bs-gray-600);
+    border-radius: .75em;
+    background-clip: content-box;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--bs-gray-300);
+    }
