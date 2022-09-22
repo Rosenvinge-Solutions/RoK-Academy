@@ -11,3 +11,8 @@ command = "dotnet workload install wasm-tools ; dotnet build \"ROKAcademy/WebApp
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/#*"
+  to = "/index.html"
+  status = 200
