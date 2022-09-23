@@ -104,7 +104,7 @@
 
     private async Task InitializeDataAsync()
     {
-        Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>("data/questions.json");
+        Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>($"data/{Localization["JsonFile"]}");
 
         questionsWithAnswers = tempDict;
     }

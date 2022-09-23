@@ -123,6 +123,9 @@
   <data name="InputPlaceholderText" xml:space="preserve">
     <value>Suche nach Teilen oder der ganzen Frage</value>
   </data>
+  <data name="JsonFile" xml:space="preserve">
+    <value>questions.de.json</value>
+  </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Daten werden geladen, bitte warten...</value>
   </data>

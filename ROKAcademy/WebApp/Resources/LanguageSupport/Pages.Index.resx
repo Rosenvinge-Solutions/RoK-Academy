@@ -123,6 +123,9 @@
   <data name="InputPlaceholderText" xml:space="preserve">
     <value>Search for part of- or full question</value>
   </data>
+  <data name="JsonFile" xml:space="preserve">
+    <value>questions.json</value>
+  </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Loading data, please wait...</value>
   </data>
