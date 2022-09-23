@@ -11,6 +11,10 @@
     max-width: 65em;
 }
 
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-light) !important;
+    --bs-tooltip-color: var(--bs-dark) !important;
+}
 
 /*
  * Header

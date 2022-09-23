@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClearSearchInputText" xml:space="preserve">
+    <value>Eingabe löschen</value>
+  </data>
   <data name="InputHelpText" xml:space="preserve">
     <value>Je spezifischer Ihre Suchanfrage ist, desto schneller ist sie, und desto weniger mögliche Antworten gibt es.</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
     <value>Einfage der Frage</value>
+  </data>
+  <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
+    <value>Suchverlauf</value>
+  </data>
+  <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
+    <value>Zeigt die 10 letzten Abfragen an</value>
   </data>
   <data name="TableHeaderAnswerText" xml:space="preserve">
     <value>Antwort(en)</value>

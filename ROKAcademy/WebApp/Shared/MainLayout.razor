@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject IStringLocalizer<MainLayout> Localization
+@inject IJSRuntime JsRuntime
 
 <header class="mb-auto">
     <nav class="navbar">
@@ -19,13 +20,13 @@
     @Body
 </main>
 
-<footer class="mt-auto text-white-50">
+<footer class="px-3 mt-auto text-white-50">
     <div class="d-flex flex-wrap justify-content-start justify-content-lg-center">
-        <div class="p2 align-self-center">
+        <div class="align-self-center">
             <span class="d-sm-inline d-block">@Localization["Footer"] <a href="https://www.lilith.com/" class="text-white">Lilith Games</a>.</span>
             <span class="d-sm-inline d-block">Rise of Kingdoms &copy; @todaysDate.Year</span>
         </div>
-        <div class="p-2 ms-auto">
+        <div class="ms-auto">
             <LanguageSelector />
         </div>
     </div>
@@ -33,11 +34,18 @@
 
 @code {
     private DateOnly todaysDate;
+    private Task<IJSObjectReference>? tooltipModule;
 
-    protected override void OnInitialized()
+    public Task<IJSObjectReference> TooltipModule =>
+        tooltipModule ??= JsRuntime.InjectJsObjectReference("import", "./js/tooltip.js");
+
+    protected override async Task OnInitializedAsync()
     {
         todaysDate = DateOnly.FromDateTime(DateTime.Now);
 
-        base.OnInitialized();
+        IJSObjectReference module = await TooltipModule;
+        await module.InvokeVoidAsync("initTooltips");
+
+        await base.OnInitializedAsync();
     }
 }
