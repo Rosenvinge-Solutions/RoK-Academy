@@ -179,30 +179,35 @@
 
     private async Task LookupAnswersAsync(string searchInput)
     {
-        if (questionsWithAnswers is null)
+        try
         {
-            answers = Enumerable.Empty<string>();
-            return;
+            if (questionsWithAnswers is null)
+            {
+                answers = Enumerable.Empty<string>();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(searchInput) || string.IsNullOrWhiteSpace(searchInput))
+            {
+                answers = Enumerable.Empty<string>();
+                return;
+            }
+
+            if (!searchHistory.Contains(searchInput))
+            {
+                searchHistory.Push(searchInput);
+            }
+
+            answers = questionsWithAnswers.Where(q => q.Key.Contains($"{searchInput}", StringComparison.OrdinalIgnoreCase)).Select(a => a.Value);
         }
-
-        if (string.IsNullOrEmpty(searchInput) || string.IsNullOrWhiteSpace(searchInput))
+        finally
         {
-            answers = Enumerable.Empty<string>();
-            return;
+            await InvokeAsync(() =>
+            {
+                loadingAnswer = false;
+                StateHasChanged();
+            });
         }
-
-        if (!searchHistory.Contains(searchInput))
-        {
-            searchHistory.Push(searchInput);
-        }
-
-        answers = questionsWithAnswers.Where(q => q.Key.Contains($"{searchInput}", StringComparison.OrdinalIgnoreCase)).Select(a => a.Value);
-
-        await InvokeAsync(() =>
-        {
-            loadingAnswer = false;
-            StateHasChanged();
-        });
     }
 }
 
