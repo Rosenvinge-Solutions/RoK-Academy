@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject IStringLocalizer<Index> Localization
+@inject IStringLocalizer<LanguageSelector> LocalizationLangauge
 
 <PageTitle>RoK Academy - @Localization["PageTitle"]</PageTitle>
 
@@ -127,8 +128,11 @@
 
     private async Task InitializeDataAsync()
     {
-        string baseUrl = "https://gist.githubusercontent.com/iZeQure/3a86397de3ca3460fb695a928ae327b8/raw/eb4383de69df06201ec5bc7c5e1e35fab06841f5/";
-        Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>($"{baseUrl}{Localization["JsonFile"]}");
+        string baseAbsoluteUrlPath = "https://gist.githubusercontent.com/iZeQure/3a86397de3ca3460fb695a928ae327b8/raw/";
+        string hashedRelativePath = "ba11568d7a54c1ebe125a448b36a38bf689c7941/";
+        string localizationFileUrl = $"{baseAbsoluteUrlPath}{hashedRelativePath}{LocalizationLangauge["Locale"]}";
+
+        Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>(localizationFileUrl);
 
         questionsWithAnswers = tempDict;
     }

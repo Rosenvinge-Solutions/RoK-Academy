@@ -14,19 +14,4 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.9" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Resources\LanguageSupport\Shared.LanguageSelector.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Shared.LanguageSelector.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\LanguageSupport\Shared.LanguageSelector.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Shared.LanguageSelector.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-
 </Project>

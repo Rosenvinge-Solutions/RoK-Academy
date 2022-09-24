@@ -13,10 +13,10 @@
             Country = country;
         }
 
-        public string DisplayName { get; init; }
+        public string ?DisplayName { get; init; }
 
-        public string Code { get; init; }
+        public string ?Code { get; init; }
 
-        public string Country { get; init; }
+        public string ?Country { get; init; }
     }
 }
