@@ -3,6 +3,12 @@
     padding-right: .25em;
 }
 
+.input-group-text:hover {
+    color: var(--bs-btn-hover-color, #000) !important;
+    background-color: var(--bs-btn-hover-bg, #d3d4d5) !important;
+    border-color: var(--bs-btn-hover-border-color, #c6c7c8) !important;
+}
+
 /* custom scrollbar */
 ::-webkit-scrollbar {
     width: .5rem;
