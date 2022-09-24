@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Eingabe löschen</value>
+    <value>Очистить ввод</value>
   </data>
   <data name="InputHelpText" xml:space="preserve">
-    <value>Je spezifischer Ihre Suchanfrage ist, desto schneller ist sie, und desto weniger mögliche Antworten gibt es.</value>
+    <value>Чем конкретнее, тем быстрее будет ваш поисковый запрос и меньше возможных ответов.</value>
   </data>
   <data name="InputPlaceholderText" xml:space="preserve">
-    <value>Suche nach Teilen oder der ganzen Frage</value>
+    <value>Поиск части или полного вопроса</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
-    <value>Daten werden geladen, bitte warten...</value>
+    <value>Загрузка данных, пожалуйста, подождите...</value>
   </data>
   <data name="NoDataFoundText" xml:space="preserve">
-    <value>Keine Antwort mit der Suchanfrage verbunden..</value>
+    <value>Нет ответа, связанного с поисковым запросом..</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Beantwortung ihrer Fragen</value>
+    <value>Ответы на ваши вопросы</value>
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Einfage der Frage</value>
+    <value>Ввод вопроса</value>
   </data>
   <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Suchverlauf</value>
+    <value>История поиска</value>
   </data>
   <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Zeigt die 10 letzten Abfragen an</value>
+    <value>Показывает 10 последних запросов</value>
   </data>
   <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Antwort(en)</value>
+    <value>Ответ(ы)</value>
   </data>
   <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Fragen</value>
+    <value>Вопросы</value>
   </data>
 </root>

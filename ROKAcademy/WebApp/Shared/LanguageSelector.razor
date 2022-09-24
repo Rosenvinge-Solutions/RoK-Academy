@@ -62,13 +62,15 @@ else
 
         OnCultureChanged += RefreshPageOnCultureChanged;
 
-        string[] englishCulture = Localization["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
-        string[] germanCulture = Localization["GermanCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] enCulture = Localization["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] deCulture = Localization["GermanCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] ruCulture = Localization["RussianCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
 
         _supportedLanguages = new List<LanguageCodes>
             {
-                new (code: englishCulture[0], displayName: englishCulture[1], country: "🇺🇸"),
-                new (code: germanCulture[0], displayName: germanCulture[1], country: "🇩🇪")
+                new (code: enCulture[0], displayName: enCulture[1], country: "🇺🇸"),
+                new (code: deCulture[0], displayName: deCulture[1], country: "🇩🇪"),
+                new (code: ruCulture[0], displayName: ruCulture[1], country: "🇷🇺")
             };
 
         var module = await CultureModule;

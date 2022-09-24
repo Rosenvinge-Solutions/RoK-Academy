@@ -117,37 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Eingabe löschen</value>
+  <data name="AriaLabel" xml:space="preserve">
+    <value>Выберите язык отображения</value>
   </data>
-  <data name="InputHelpText" xml:space="preserve">
-    <value>Je spezifischer Ihre Suchanfrage ist, desto schneller ist sie, und desto weniger mögliche Antworten gibt es.</value>
+  <data name="EnglishCulture" xml:space="preserve">
+    <value>en-US; Английский (US)</value>
   </data>
-  <data name="InputPlaceholderText" xml:space="preserve">
-    <value>Suche nach Teilen oder der ganzen Frage</value>
+  <data name="GermanCulture" xml:space="preserve">
+    <value>de-DE; Немецкий (DE)</value>
   </data>
-  <data name="LoadingText" xml:space="preserve">
-    <value>Daten werden geladen, bitte warten...</value>
+  <data name="Locale" xml:space="preserve">
+    <value>ru</value>
   </data>
-  <data name="NoDataFoundText" xml:space="preserve">
-    <value>Keine Antwort mit der Suchanfrage verbunden..</value>
-  </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Beantwortung ihrer Fragen</value>
-  </data>
-  <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Einfage der Frage</value>
-  </data>
-  <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Suchverlauf</value>
-  </data>
-  <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Zeigt die 10 letzten Abfragen an</value>
-  </data>
-  <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Antwort(en)</value>
-  </data>
-  <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Fragen</value>
+  <data name="RussianCulture" xml:space="preserve">
+    <value>ru-RU; Русский (RU)</value>
   </data>
 </root>

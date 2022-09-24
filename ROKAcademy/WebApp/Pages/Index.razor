@@ -128,13 +128,18 @@
 
     private async Task InitializeDataAsync()
     {
-        string baseAbsoluteUrlPath = "https://gist.githubusercontent.com/iZeQure/3a86397de3ca3460fb695a928ae327b8/raw/";
-        string hashedRelativePath = "ba11568d7a54c1ebe125a448b36a38bf689c7941/";
-        string localizationFileUrl = $"{baseAbsoluteUrlPath}{hashedRelativePath}{LocalizationLangauge["Locale"]}";
+        string localizationFileUrl = $"data/{LocalizationLangauge["Locale"]}.json";
 
-        Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>(localizationFileUrl);
+        try
+        {
+            Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>(localizationFileUrl);
 
-        questionsWithAnswers = tempDict;
+            questionsWithAnswers = tempDict;
+        }
+        catch (Exception)
+        {
+            questionsWithAnswers = new Dictionary<string, string>();
+        }
     }
 
     private void SaveInputData(ChangeEventArgs e)

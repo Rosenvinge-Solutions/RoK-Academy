@@ -129,4 +129,7 @@
   <data name="Locale" xml:space="preserve">
     <value>en</value>
   </data>
+  <data name="RussianCulture" xml:space="preserve">
+    <value>ru-RU; Russian (RU)</value>
+  </data>
 </root>

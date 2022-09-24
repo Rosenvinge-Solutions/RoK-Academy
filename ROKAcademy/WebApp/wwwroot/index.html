@@ -41,7 +41,13 @@
 </head>
 
 <body class="d-flex h-100 text-center text-bg-dark">
-    <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">Loading...</div>
+    <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
