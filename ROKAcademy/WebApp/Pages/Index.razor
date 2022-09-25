@@ -15,12 +15,12 @@
                    aria-label="@Localization["QuestionInputAriaLabel"]"
                    disabled="@loadingAnswer"
                    value="@input"
-                   @onchange="@OnChange_SearchByInputAsync"
+                   @onchange="@OnChange_SearchByInput"
                    @oninput="@SaveInputData">
 
             <label for="questionInput" class="text-dark">@Localization["InputPlaceholderText"]</label>
         </div>
-        <button class="input-group-text text-bg-light text-dark @(string.IsNullOrEmpty(input) ? "pe-none" : "pe-auto")"
+        <button class="input-group-text text-bg-light text-dark @(string.IsNullOrWhiteSpace(input) ? "pe-none" : "pe-auto")"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
@@ -30,8 +30,8 @@
         </button>
 
         <button id="searchHistoryDropdownmenu"
-                class="btn @(searchHistory.Count is 0 ? "btn-outline-light" : "btn-light") dropdown-toggle"
-                disabled="@(searchHistory.Count is 0)"
+                class="btn @(!searchHistory.Any() ? "btn-outline-light" : "btn-light") dropdown-toggle"
+                disabled="@(!searchHistory.Any())"
                 type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
             @Localization["SearchHistoryDropdownButtonText"]
@@ -43,7 +43,7 @@
             {
                 @foreach (string search in searchHistory)
                 {
-                    <li><a class="dropdown-item" href="" @onclick="() => OnClick_SearchByHistoryAsync(search)">@search</a></li>
+                    <li><a class="dropdown-item" href="" @onclick="() => OnClick_SearchByHistory(search)">@search</a></li>
                 }
             }
         </ul>
@@ -60,17 +60,9 @@
     }
     else
     {
-
         <table class="table table-lg table-dark table-hover table-striped align-middle">
             <thead>
                 <tr>
-                    @if (answers is not null)
-                    {
-                        if (answers.Count() is 0)
-                        {
-                            <th scope="col">@Localization["TableHeaderQuestionText"]</th>
-                        }
-                    }
                     <th scope="col">@Localization["TableHeaderAnswerText"]</th>
                 </tr>
             </thead>
@@ -98,10 +90,10 @@
                     }
                     else
                     {
-                        @for (int i = 0; i < answers.Count(); i++)
+                        @foreach (string answer in answers)
                         {
                             <tr>
-                                <td>@answers.ElementAt(i)</td>
+                                <td>@answer</td>
                             </tr>
                         }
                     }
@@ -115,7 +107,6 @@
     private IReadOnlyDictionary<string, string>? questionsWithAnswers;
     private IEnumerable<string>? answers = Enumerable.Empty<string>();
     private Stack<string> searchHistory = new(10);
-    private CancellationTokenSource cancellationToken = new();
     private bool loadingAnswer = false;
     private string input = string.Empty;
 
@@ -150,31 +141,26 @@
     private void ClearInput()
     {
         input = string.Empty;
-        answers = Enumerable.Empty<string>();
     }
 
-    private async Task OnChange_SearchByInputAsync(ChangeEventArgs e)
+    private void OnChange_SearchByInput(ChangeEventArgs e)
     {
         loadingAnswer = true;
         _ = Task.Run(async () =>
         {
             string searchInput = e.Value is null ? string.Empty : $"{e.Value}";
             await LookupAnswersAsync(searchInput);
-        }, cancellationToken.Token);
-
-        await Task.CompletedTask;
+        });
     }
 
-    private async Task OnClick_SearchByHistoryAsync(string searchHistory)
+    private void OnClick_SearchByHistory(string searchHistory)
     {
         loadingAnswer = true;
         _ = Task.Run(async () =>
         {
             input = searchHistory;
             await LookupAnswersAsync(searchHistory);
-        }, cancellationToken.Token);
-
-        await Task.CompletedTask;
+        });
     }
 
     private async Task LookupAnswersAsync(string searchInput)
@@ -198,7 +184,10 @@
                 searchHistory.Push(searchInput);
             }
 
-            answers = questionsWithAnswers.Where(q => q.Key.Contains($"{searchInput}", StringComparison.OrdinalIgnoreCase)).Select(a => a.Value);
+            answers =
+                (from q in questionsWithAnswers
+                 where q.Key.Contains(searchInput, StringComparison.OrdinalIgnoreCase)
+                 select q.Value);
         }
         finally
         {
