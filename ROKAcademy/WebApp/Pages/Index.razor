@@ -34,7 +34,8 @@
                 disabled="@(!searchHistory.Any())"
                 type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-            @Localization["SearchHistoryDropdownButtonText"]
+            <span class="d-inline d-sm-none"><i class="fa-solid fa-clock-rotate-left"></i></span>
+            <span class="d-none d-sm-inline">@Localization["SearchHistoryDropdownButtonText"]</span>
         </button>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="searchHistoryDropdownmenu">
@@ -48,70 +49,65 @@
             }
         </ul>
     </div>
-    <div id="questionHelp" class="form-text text-start">@Localization["InputHelpText"]</div>
+    <div id="questionHelp" class="form-text text-start d-none d-sm-block">@Localization["InputHelpText"]</div>
 </div>
 
 <div class="table-responsive table-responsive-md my-5">
-    @if (loadingAnswer)
+    @if (answers is null || questionsWithAnswers is null)
     {
-        <div class="spinner-border text-light" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+        <LoadingIndicator />
     }
     else
     {
-        <table class="table table-lg table-dark table-hover table-striped align-middle">
-            <thead>
-                <tr>
-                    <th scope="col">@Localization["TableHeaderAnswerText"]</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                @if (questionsWithAnswers is null)
-                {
-                    <tr>
-                        <th>
-                            @Localization["LoadingText"]
-                        </th>
-                        <th>
-                            <div class="spinner-border text-light" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </th>
-                    </tr>
-                }
-                else
-                {
-                    @if (answers is null)
-                    {
+        @if (loadingAnswer)
+        {
+            <LoadingIndicator />
+        }
+        else
+        {
+            @if (answers.Any())
+            {
+                <table class="table table-lg table-dark table-hover table-striped align-middle">
+                    <thead>
                         <tr>
-                            <th>@Localization["NoDataFoundText"]</th>
+                            <th scope="col" class="text-start d-none d-sm-block">@Localization["TableHeaderQuestionText"]</th>
+                            <th scope="col" class="text-start text-sm-end">@Localization["TableHeaderAnswerText"]</th>
                         </tr>
-                    }
-                    else
-                    {
-                        @foreach (string answer in answers)
+                    </thead>
+                    <tbody class="table-group-divider">
+                        @foreach (var answer in answers)
                         {
                             <tr>
-                                <td>@answer</td>
+                                <td class="text-start d-none d-sm-block">@answer.Key</td>
+                                <td class="text-start text-sm-end">@answer.Value</td>
                             </tr>
                         }
-                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                @if (enteredSearchMode)
+                {
+                    <p>@Localization["NoDataFoundText"]</p>
                 }
-            </tbody>
-        </table>
+            }
+        }
     }
 </div>
 
 @code {
+    private Dictionary<string, string> emptyDictionary = new();
     private IReadOnlyDictionary<string, string>? questionsWithAnswers;
-    private IEnumerable<string>? answers = Enumerable.Empty<string>();
+    private IReadOnlyDictionary<string, string>? answers;
     private Stack<string> searchHistory = new(10);
     private bool loadingAnswer = false;
+    private bool enteredSearchMode = false;
     private string input = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
+        answers = emptyDictionary;
         await InitializeDataAsync();
 
         await base.OnInitializedAsync();
@@ -129,22 +125,26 @@
         }
         catch (Exception)
         {
-            questionsWithAnswers = new Dictionary<string, string>();
+            questionsWithAnswers = emptyDictionary;
         }
     }
 
     private void SaveInputData(ChangeEventArgs e)
     {
         input = $"{e.Value}";
+        enteredSearchMode = false;
     }
 
     private void ClearInput()
     {
         input = string.Empty;
+        answers = emptyDictionary;
+        enteredSearchMode = false;
     }
 
     private void OnChange_SearchByInput(ChangeEventArgs e)
     {
+        enteredSearchMode = true;
         loadingAnswer = true;
         _ = Task.Run(async () =>
         {
@@ -155,6 +155,7 @@
 
     private void OnClick_SearchByHistory(string searchHistory)
     {
+        enteredSearchMode = true;
         loadingAnswer = true;
         _ = Task.Run(async () =>
         {
@@ -169,13 +170,13 @@
         {
             if (questionsWithAnswers is null)
             {
-                answers = Enumerable.Empty<string>();
+                answers = emptyDictionary;
                 return;
             }
 
             if (string.IsNullOrEmpty(searchInput) || string.IsNullOrWhiteSpace(searchInput))
             {
-                answers = Enumerable.Empty<string>();
+                answers = emptyDictionary;
                 return;
             }
 
@@ -187,7 +188,7 @@
             answers =
                 (from q in questionsWithAnswers
                  where q.Key.Contains(searchInput, StringComparison.OrdinalIgnoreCase)
-                 select q.Value);
+                 select q).ToDictionary(q => q.Key, q => q.Value);
         }
         finally
         {

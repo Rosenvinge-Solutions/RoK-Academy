@@ -7,10 +7,10 @@
         <div class="container-fluid">
             <a class="navbar-brand text-light float-md-start mb-0 py-1 px-0 fs-4" href="">
                 <img src="images/graduated.png" class="pe-2" alt="Bootstrap" height="50">
-                RoK Academy
+                <span class="d-none d-sm-inline h3">RoK Academy</span>
             </a>
             <div class="nav nav-masthead justify-content-center float-md-end">
-                <NavLink class="nav-link py-1 px-0" href=""><i class="fa-solid fa-graduation-cap"></i> @Localization["Q&A"]</NavLink>
+                <NavLink class="nav-link py-1 px-0 h6" href=""><i class="fa-solid fa-graduation-cap"></i> <span class="d-none d-md-inline">@Localization["Q&A"]</span></NavLink>
             </div>
         </div>
     </nav>
@@ -21,12 +21,21 @@
 </main>
 
 <footer class="px-3 mt-auto text-white-50">
-    <div class="d-flex flex-wrap justify-content-start justify-content-lg-center">
-        <div class="align-self-center">
-            <span class="d-md-inline d-block">@Localization["Footer"] <a href="https://www.lilith.com/" class="fw-semibold text-white">Lilith Games</a>.</span>
-            <span class="d-md-inline d-block">Rise of Kingdoms &copy; @todaysDate.Year</span>
+    <div class="d-flex align-content-center align-items-center flex-wrap">
+        <div id="copyrightInfo" class="text-start text-break py-2">
+            <span class="d-none d-md-inline fs-6">@Localization["Footer"] <a href="https://www.lilith.com/" target="_parent" class="fw-semibold text-white">Lilith Games</a>.</span>
+            <span class="d-none d-md-inline fs-6">Rise of Kingdoms &copy; @todaysDate.Year</span>
+            <span class="d-inline d-md-none"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="custom-tooltip"
+                  data-bs-html="true"
+                  data-bs-title="
+                        @Localization["Footer"] 
+                        <a href='https://www.lilith.com/' target='_parent' class='fw-semibold text-dark'>Lilith Games</a>.
+                        </br> Rise of Kingdoms &copy; @todaysDate.Year">&copy; @todaysDate.Year</span>
         </div>
-        <div class="ms-auto">
+        <div id="languageSettings" class="ms-auto text-wrap">
             <LanguageSelector />
         </div>
     </div>

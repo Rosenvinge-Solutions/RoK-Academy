@@ -1,4 +1,14 @@
-﻿.table-responsive {
+﻿@media (min-width: 576px) {
+    table th.d-sm-block {
+        display: table-cell !important;
+    }
+
+    table td.d-sm-block {
+        display: table-cell !important;
+    }
+}
+
+.table-responsive {
     max-height: 35rem !important;
     padding-right: .25em;
 }
