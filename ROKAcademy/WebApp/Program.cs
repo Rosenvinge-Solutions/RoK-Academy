@@ -14,5 +14,6 @@ builder.Services
 
 WebAssemblyHost host = builder.Build();
 await host.SetDefaultHostCulture();
+await host.SetDefaultHostQueryMode();
 
 await host.RunAsync();

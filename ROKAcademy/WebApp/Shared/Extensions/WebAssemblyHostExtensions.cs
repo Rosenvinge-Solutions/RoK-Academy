@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace WebApp.Shared.Extensions
 {
@@ -28,6 +29,21 @@ namespace WebApp.Shared.Extensions
 
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
+        }
+
+        public static async Task SetDefaultHostQueryMode(this WebAssemblyHost host)
+        {
+            IJSRuntime js = host.Services.GetRequiredService<IJSRuntime>();
+            IJSObjectReference settingsJsModule = await js.InjectJsObjectReference("import", "./js/settings.js");
+
+            string? result = await settingsJsModule.InvokeAsync<string>("getSearchQueryMode");
+
+            if (result is not null && !string.IsNullOrEmpty(result))
+            {
+                return;
+            }
+
+            await settingsJsModule.InvokeVoidAsync("setSearchQueryMode", 0);
         }
     }
 }

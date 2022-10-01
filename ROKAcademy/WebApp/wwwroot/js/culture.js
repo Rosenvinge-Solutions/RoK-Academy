@@ -1,13 +1,11 @@
-﻿const cultureStorageKey = "culture";
+﻿const cultureStorageKey = "Culture";
 
 window.setDotNetReferenceForLanguageSelector = (dotNetReference) => {
     const ref = dotNetReference;
 
     var matches = window.matchMedia("(min-width: 768px)").matches ? false : true;
     ref.invokeMethodAsync("InitializeMobileDeviceMode", matches)
-        .then(() => {
-            console.info("Updated device mode.");
-        });
+        .then(() => {});
 
     window.matchMedia("(min-width: 768px)").addEventListener('change', event => {
         if (ref == null) {
@@ -17,9 +15,7 @@ window.setDotNetReferenceForLanguageSelector = (dotNetReference) => {
 
         try {
             ref.invokeMethodAsync("InitializeMobileDeviceMode", event.matches ? false : true)
-                .then(() => {
-                    console.info("Updated device mode.");
-                });
+                .then(() => {});
         } catch (e) {
             console.error("Unsupported error occurred: {0}", e);
         }
