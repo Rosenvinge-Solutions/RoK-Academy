@@ -120,6 +120,9 @@
   <data name="Footer" xml:space="preserve">
     <value>This fansite does not belong to</value>
   </data>
+  <data name="FooterRights" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
   <data name="Q&amp;A" xml:space="preserve">
     <value>Lyceum of Wisdom</value>
   </data>

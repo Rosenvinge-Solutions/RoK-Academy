@@ -123,17 +123,26 @@
   <data name="InputHelpText" xml:space="preserve">
     <value>Чем конкретнее, тем быстрее будет ваш поисковый запрос и меньше возможных ответов.</value>
   </data>
-  <data name="InputPlaceholderText" xml:space="preserve">
+  <data name="InputPlaceholderAnswersText" xml:space="preserve">
+    <value>Найдите часть или полный ответ</value>
+  </data>
+  <data name="InputPlaceholderQuestionsText" xml:space="preserve">
     <value>Поиск части или полного вопроса</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Загрузка данных, пожалуйста, подождите...</value>
+  </data>
+  <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
+    <value>ИЛИ ЖЕ</value>
   </data>
   <data name="NoDataFoundText" xml:space="preserve">
     <value>Нет ответа, связанного с поисковым запросом..</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
     <value>Ответы на ваши вопросы</value>
+  </data>
+  <data name="QuerySwitchHelpText" xml:space="preserve">
+    <value>Искать в; Вопросы или ответы</value>
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
     <value>Ввод вопроса</value>

@@ -123,17 +123,26 @@
   <data name="InputHelpText" xml:space="preserve">
     <value>The more specific, the faster your search query will be, and less possible answers.</value>
   </data>
-  <data name="InputPlaceholderText" xml:space="preserve">
+  <data name="InputPlaceholderAnswersText" xml:space="preserve">
+    <value>Search for part of- or full answer</value>
+  </data>
+  <data name="InputPlaceholderQuestionsText" xml:space="preserve">
     <value>Search for part of- or full question</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Loading data, please wait...</value>
+  </data>
+  <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
+    <value>OR</value>
   </data>
   <data name="NoDataFoundText" xml:space="preserve">
     <value>No answer associated with search query..</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
     <value>Answers to your questions</value>
+  </data>
+  <data name="QuerySwitchHelpText" xml:space="preserve">
+    <value>Search in; Questions or Answers</value>
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
     <value>Question input</value>

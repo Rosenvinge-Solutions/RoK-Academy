@@ -120,6 +120,9 @@
   <data name="Footer" xml:space="preserve">
     <value>Этот фан-сайт не принадлежит</value>
   </data>
+  <data name="FooterRights" xml:space="preserve">
+    <value>Все права защищены</value>
+  </data>
   <data name="Q&amp;A" xml:space="preserve">
     <value>Лицей мудрости</value>
   </data>

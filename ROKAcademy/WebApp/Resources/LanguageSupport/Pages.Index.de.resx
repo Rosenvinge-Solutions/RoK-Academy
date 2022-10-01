@@ -123,17 +123,26 @@
   <data name="InputHelpText" xml:space="preserve">
     <value>Je spezifischer Ihre Suchanfrage ist, desto schneller ist sie, und desto weniger mögliche Antworten gibt es.</value>
   </data>
-  <data name="InputPlaceholderText" xml:space="preserve">
-    <value>Suche nach Teilen oder der ganzen Frage</value>
+  <data name="InputPlaceholderAnswersText" xml:space="preserve">
+    <value>Suche nach teilweiser oder vollständiger Antwort</value>
+  </data>
+  <data name="InputPlaceholderQuestionsText" xml:space="preserve">
+    <value>Suche nach Teil- oder Vollfrage</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Daten werden geladen, bitte warten...</value>
+  </data>
+  <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
+    <value>ODER</value>
   </data>
   <data name="NoDataFoundText" xml:space="preserve">
     <value>Keine Antwort mit der Suchanfrage verbunden..</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
     <value>Beantwortung ihrer Fragen</value>
+  </data>
+  <data name="QuerySwitchHelpText" xml:space="preserve">
+    <value>Suchen in; Fragen oder Antworten</value>
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
     <value>Einfage der Frage</value>

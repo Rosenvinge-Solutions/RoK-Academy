@@ -14,7 +14,7 @@ else
     <select class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
         @foreach (var culture in _supportedLanguages)
         {
-            <option value=@culture.Code>
+            <option disabled=@culture.IsDisabled value=@culture.Code>
                 @if (_isMobileDeviceMode)
                 {
                     @culture.Country
@@ -29,7 +29,7 @@ else
 }
 
 @code {
-    private event EventHandler ?OnCultureChanged;
+    private event EventHandler? OnCultureChanged;
 
     private Task<IJSObjectReference>? _cultureModule;
     private IEnumerable<LanguageCodes> _supportedLanguages = Enumerable.Empty<LanguageCodes>();

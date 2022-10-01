@@ -120,6 +120,9 @@
   <data name="Footer" xml:space="preserve">
     <value>Diese Fanseite gehört nicht zu</value>
   </data>
+  <data name="FooterRights" xml:space="preserve">
+    <value>Alle Rechte vorbehalten</value>
+  </data>
   <data name="Q&amp;A" xml:space="preserve">
     <value>Lehrstätte der Weisheit</value>
   </data>
