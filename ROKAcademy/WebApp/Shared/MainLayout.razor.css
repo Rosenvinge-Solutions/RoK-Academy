@@ -1,3 +1,7 @@
 .navbar-brand .h3 {
     font-weight: 700 !important;
 }
+
+#copyrightInfo span {
+    font-size: .75em !important;
+}

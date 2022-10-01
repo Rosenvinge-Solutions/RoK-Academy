@@ -2,6 +2,8 @@
 @inject HttpClient Http
 @inject IStringLocalizer<Index> Localization
 @inject IStringLocalizer<LanguageSelector> LocalizationLangauge
+@inject IJSRuntime JSRuntime
+
 
 <PageTitle>RoK Academy - @Localization["PageTitle"]</PageTitle>
 
@@ -16,10 +18,19 @@
                    disabled="@loadingAnswer"
                    value="@input"
                    @onchange="@OnChange_SearchByInput"
-                   @oninput="@SaveInputData">
+                   @oninput="@OnInput_SaveInputData"
+                   @onkeypress="OnKeyPress_SearchByInput">
 
-            <label for="questionInput" class="text-dark">@Localization["InputPlaceholderText"]</label>
+            <label for="questionInput" class="text-dark d-none d-sm-block fs-6">
+                @(queryMode is 0
+                    ? Localization["InputPlaceholderQuestionsText"]
+                    : Localization["InputPlaceholderAnswersText"])
+            </label>
+            <label for="questionInput" class="text-dark d-block d-sm-none">
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            </label>
         </div>
+
         <button class="input-group-text text-bg-light text-dark @(string.IsNullOrWhiteSpace(input) ? "pe-none" : "pe-auto")"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
@@ -49,7 +60,25 @@
             }
         </ul>
     </div>
-    <div id="questionHelp" class="form-text text-start d-none d-sm-block">@Localization["InputHelpText"]</div>
+    <div class="d-flex align-items-center">
+        <div id="questionHelp" class="form-text text-start flex-fill d-none d-sm-block">@Localization["InputHelpText"]</div>
+        <div class="form-check form-switch ms-auto">
+            <input class="form-check-input"
+                   type="checkbox"
+                   role="switch"
+                   id="querySearchSwitcher"
+                   disabled="@enteredQueryModeChange"
+                   checked="@(queryMode is 0 ? false : true)"
+                   value="@(queryMode)"
+                   @onchange="OnChange_SwitchQueryModeAsync">
+        </div>
+        <span data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="@Localization["QuerySwitchHelpText"]">
+            <i class="fa-regular fa-circle-question"></i>
+        </span>
+    </div>
 </div>
 
 <div class="table-responsive table-responsive-md my-5">
@@ -79,7 +108,26 @@
                         {
                             <tr>
                                 <td class="text-start d-none d-sm-block">@answer.Key</td>
-                                <td class="text-start text-sm-end">@answer.Value</td>
+                                <td class="text-start text-sm-end">
+                                    @if (answer.Value.Length is 1)
+                                    {
+                                        <span class="d-block">@answer.Value.FirstOrDefault()</span>
+                                    }
+                                    else
+                                    {
+                                        @foreach (string a in answer.Value)
+                                        {
+                                            @if (!a.Equals(answer.Value.Last()))
+                                            {
+                                                <span class="d-block">@(a) @Localization["MultilpleAnswersSeparatorText"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="d-block">@(a)</span>
+                                            }
+                                        }
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -97,16 +145,34 @@
 </div>
 
 @code {
-    private Dictionary<string, string> emptyDictionary = new();
-    private IReadOnlyDictionary<string, string>? questionsWithAnswers;
-    private IReadOnlyDictionary<string, string>? answers;
+    private Task<IJSObjectReference>? _settingsModule;
+    private Dictionary<string, string[]> emptyDictionary = new();
+    private IReadOnlyDictionary<string, string[]>? questionsWithAnswers;
+    private IReadOnlyDictionary<string, string[]>? answers;
+    private QueryMode queryMode;
     private Stack<string> searchHistory = new(10);
     private bool loadingAnswer = false;
     private bool enteredSearchMode = false;
+    private bool enteredQueryModeChange = false;
     private string input = string.Empty;
+
+    public Task<IJSObjectReference> SettingsModule =>
+        _settingsModule ??= JSRuntime.InjectJsObjectReference("import", "./js/settings.js");
 
     protected override async Task OnInitializedAsync()
     {
+        if (SettingsModule is not null)
+        {
+            IJSObjectReference settings = await SettingsModule;
+
+            string rawMode = await settings.InvokeAsync<string>("getSearchQueryMode");
+
+            if (!string.IsNullOrWhiteSpace(rawMode))
+            {
+                queryMode = (QueryMode)Convert.ToInt32(rawMode);
+            }
+        }
+
         answers = emptyDictionary;
         await InitializeDataAsync();
 
@@ -119,7 +185,7 @@
 
         try
         {
-            Dictionary<string, string>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string>>(localizationFileUrl);
+            Dictionary<string, string[]>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
 
             questionsWithAnswers = tempDict;
         }
@@ -129,7 +195,7 @@
         }
     }
 
-    private void SaveInputData(ChangeEventArgs e)
+    private void OnInput_SaveInputData(ChangeEventArgs e)
     {
         input = $"{e.Value}";
         enteredSearchMode = false;
@@ -140,6 +206,55 @@
         input = string.Empty;
         answers = emptyDictionary;
         enteredSearchMode = false;
+    }
+
+    private async Task OnChange_SwitchQueryModeAsync(ChangeEventArgs e)
+    {
+        enteredQueryModeChange = true;
+        try
+        {
+            switch (e.Value)
+            {
+                case false:
+                    queryMode = QueryMode.QuestionMode;
+                    break;
+                case true:
+                    queryMode = QueryMode.AnswerMode;
+                    break;
+            }
+
+            if (SettingsModule is not null)
+            {
+                IJSObjectReference settings = await SettingsModule;
+
+                await settings.InvokeVoidAsync("setSearchQueryMode", queryMode);
+            }
+        }
+        finally
+        {
+            enteredQueryModeChange = false;
+            StateHasChanged();
+        }
+    }
+
+    private void OnKeyPress_SearchByInput(KeyboardEventArgs e)
+    {
+        if (!e.Key.Equals("Enter"))
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return;
+        }
+
+        enteredSearchMode = true;
+        loadingAnswer = true;
+        _ = Task.Run(async () =>
+        {
+            await LookupAnswersAsync(input);
+        });
     }
 
     private void OnChange_SearchByInput(ChangeEventArgs e)
@@ -185,10 +300,21 @@
                 searchHistory.Push(searchInput);
             }
 
+            if (queryMode is 0)
+            {
+                answers =
+                    (from q in questionsWithAnswers
+                     where q.Key.Contains(searchInput, StringComparison.OrdinalIgnoreCase)
+                     select q).ToDictionary(q => q.Key, q => q.Value);
+
+                return;
+            }
+
             answers =
-                (from q in questionsWithAnswers
-                 where q.Key.Contains(searchInput, StringComparison.OrdinalIgnoreCase)
-                 select q).ToDictionary(q => q.Key, q => q.Value);
+                    questionsWithAnswers
+                    .Where(a => a.Value.Any(x => x.Contains(searchInput, StringComparison.OrdinalIgnoreCase)))
+                    .Select(q => q)
+                    .ToDictionary(q => q.Key, q => q.Value);
         }
         finally
         {
@@ -199,5 +325,10 @@
             });
         }
     }
-}
 
+    protected enum QueryMode
+    {
+        QuestionMode = 0,
+        AnswerMode = 1
+    }
+}

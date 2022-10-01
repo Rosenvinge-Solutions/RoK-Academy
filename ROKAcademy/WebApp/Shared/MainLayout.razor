@@ -23,17 +23,17 @@
 <footer class="px-3 mt-auto text-white-50">
     <div class="d-flex align-content-center align-items-center flex-wrap">
         <div id="copyrightInfo" class="text-start text-break py-2">
-            <span class="d-none d-md-inline fs-6">@Localization["Footer"] <a href="https://www.lilith.com/" target="_parent" class="fw-semibold text-white">Lilith Games</a>.</span>
-            <span class="d-none d-md-inline fs-6">Rise of Kingdoms &copy; @todaysDate.Year</span>
+            <span class="d-none d-md-inline fs-6">@Localization["Footer"] <a href="https://www.lilith.com/" target="_parent" class="fw-semibold text-white">Lilith Games</a> | </span>
+            <span class="d-none d-md-inline fs-6">Rise of Kingdoms &copy; @todaysDate.Year | </span>
+            <span class="d-none d-md-inline fs-6">@Localization["FooterRights"]</span>
             <span class="d-inline d-md-none"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-html="true"
-                  data-bs-title="
-                        @Localization["Footer"] 
-                        <a href='https://www.lilith.com/' target='_parent' class='fw-semibold text-dark'>Lilith Games</a>.
-                        </br> Rise of Kingdoms &copy; @todaysDate.Year">&copy; @todaysDate.Year</span>
+                  data-bs-title="@Localization["Footer"] <a href='https://www.lilith.com/' target='_parent' class='fw-semibold text-dark'>Lilith Games</a> Rise of Kingdoms">
+                &copy; @todaysDate.Year | @Localization["FooterRights"]
+            </span>
         </div>
         <div id="languageSettings" class="ms-auto text-wrap">
             <LanguageSelector />
