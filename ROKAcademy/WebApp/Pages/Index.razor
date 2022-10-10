@@ -84,13 +84,13 @@
 <div class="table-responsive table-responsive-md my-5">
     @if (answers is null || questionsWithAnswers is null)
     {
-        <LoadingIndicator />
+        <LoadingIndicator Indicator="Indicator.Enhanced" />
     }
     else
     {
         @if (loadingAnswer)
         {
-            <LoadingIndicator />
+            <LoadingIndicator Indicator="Indicator.Enhanced" />
         }
         else
         {

@@ -1,7 +1,29 @@
-﻿<div class="spinner-border text-light" role="status">
-    <span class="visually-hidden">Loading...</span>
-</div>
+﻿@switch (Indicator)
+{
+    case Indicator.Default:
+        <div class="loading-default">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        break;
+    case Indicator.Simple:
+        <div class="loading-simple">
+        </div>
+        break;
+    case Indicator.Enhanced:
+        <div class="loading-enhanced">
+            <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 170">
+                <circle cx="85" cy="85" r="80" stroke="#f8f9fa" />
+                <circle cx="85" cy="85" r="67.5" stroke="#404041" />
+                <circle cx="85" cy="85" r="55" stroke="#f8f9fa" />
+                <circle cx="85" cy="85" r="42.5" stroke="#404041" />
+            </svg>
+        </div>
+        break;
+}
 
 @code {
-
+    [Parameter]
+    public Indicator Indicator { get; set; } = Indicator.Default;
 }
