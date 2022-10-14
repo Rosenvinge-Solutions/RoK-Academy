@@ -17,9 +17,11 @@
                    aria-label="@Localization["QuestionInputAriaLabel"]"
                    disabled="@loadingAnswer"
                    value="@input"
+                   @ref="@inputReference"
                    @onchange="@OnChange_SearchByInput"
                    @oninput="@OnInput_SaveInputData"
-                   @onkeypress="OnKeyPress_SearchByInput">
+                   @onkeypress="OnKeyPress_HandleInput"
+                   @onkeydown="OnKeyDown_HandleInput">
 
             <label for="questionInput" class="text-dark d-none d-sm-block fs-6">
                 @(queryMode is 0
@@ -151,6 +153,7 @@
     private IReadOnlyDictionary<string, string[]>? answers;
     private QueryMode queryMode;
     private Stack<string> searchHistory = new(10);
+    private ElementReference inputReference;
     private bool loadingAnswer = false;
     private bool enteredSearchMode = false;
     private bool enteredQueryModeChange = false;
@@ -177,6 +180,8 @@
         await InitializeDataAsync();
 
         await base.OnInitializedAsync();
+
+        await inputReference.FocusAsync();
     }
 
     private async Task InitializeDataAsync()
@@ -197,12 +202,17 @@
 
     private void OnInput_SaveInputData(ChangeEventArgs e)
     {
-        input = $"{e.Value}";
+        input = $"{e?.Value}";
         enteredSearchMode = false;
     }
 
     private void ClearInput()
     {
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return;
+        }
+
         input = string.Empty;
         answers = emptyDictionary;
         enteredSearchMode = false;
@@ -237,7 +247,22 @@
         }
     }
 
-    private void OnKeyPress_SearchByInput(KeyboardEventArgs e)
+    private void OnKeyDown_HandleInput(KeyboardEventArgs e)
+    {
+        if (!e.Key.Equals("Escape"))
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return;
+        }
+
+        ClearInput();
+    }
+
+    private void OnKeyPress_HandleInput(KeyboardEventArgs e)
     {
         if (!e.Key.Equals("Enter"))
         {
@@ -323,6 +348,8 @@
                 loadingAnswer = false;
                 StateHasChanged();
             });
+
+            await inputReference.FocusAsync();
         }
     }
 
