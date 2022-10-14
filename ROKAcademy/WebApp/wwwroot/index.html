@@ -131,6 +131,40 @@
         </div>
     </div>
 
+    <div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-dark" id="feedbackModalpLabel">Feedback</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="feedback" name="feedback" data-netlify="true">
+                    <input type="hidden" name="form-name" value="feedback" />
+                    <div class="modal-body">
+                        <div class="form-floating">
+                            <textarea id="questionTextarea" class="form-control text-dark my-2" name="question" placeholder="Leave the full question here" style="height: 100px"></textarea>
+                            <label class="text-dark" for="questionTextarea">Question</label>
+                        </div>
+                        <hr />
+                        <div class="form-floating">
+                            <textarea id="correctQuestion" class="form-control text-dark my-2" name="correctQuestion" placeholder="Leave the correct question here" style="height: 100px"></textarea>
+                            <label class="text-dark" for="correctQuestion">Correct Question</label>
+                        </div>
+                        <div class="form-floating">
+                            <input id="correctAnswer" class="form-control text-dark" name="correctAnswer" placeholder="Leave the correct answer here" />
+                            <label class="text-dark" for="correctQuestion">Correct Answer</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary ms-auto">Send Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <div id="blazor-error-ui">
         An unhandled error has occurred.
         <a href="" class="reload">Reload</a>
