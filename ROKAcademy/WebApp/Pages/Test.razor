@@ -1,0 +1,85 @@
+﻿@page "/test"
+
+@inject IJSRuntime JSRuntime
+
+<h3>Test</h3>
+
+<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="feedbackModalpLabel">Feedback</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="feedback"
+                      name="feedback"
+                      action="/success"
+                      data-netlify-recaptcha="true"
+                      data-netlify="true">
+                    <input type="hidden" name="form-name" value="feedback" />
+                    <div class="form-floating">
+                        <textarea id="oldQuestion" class="form-control form-control-sm text-dark my-2" name="oldQuestion" placeholder="Leave the question to be replaced here"></textarea>
+                        <label class="text-dark col-form-label col-form-label-sm" for="oldQuestion">Old Question</label>
+                        <div id="questionHelp" class="form-text text-start">Fill out with the existing question, which need to be replaced or leave blank if it does not exist.</div>
+                    </div>
+                    <hr />
+                    <div class="form-floating">
+                        <textarea id="newQuestion" class="form-control form-control-sm text-dark my-2" name="newQuestion" placeholder="Leave the new question here"></textarea>
+                        <label class="text-dark col-form-label col-form-label-sm" for="newQuestion">New Question</label>
+                        <div id="newQuestionHelp" class="form-text text-start"></div>
+                    </div>
+                    <hr />
+                    <div class="form-floating">
+                        <textarea id="newAnswer" class="form-control form-control-sm text-dark my-2" name="newAnswer" placeholder="Leave the new answer here"></textarea>
+                        <label class="text-dark col-form-label col-form-label-sm" for="newAnswer">New Answer</label>
+                        <div id="newAnswerHelp" class="form-text text-start"></div>
+                    </div>
+                    <div data-netlify-recaptcha="true"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="submitFeedback" class="btn btn-sm btn-primary ms-auto">Send Feedback</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    public Task<IJSObjectReference> FeedbackModule =>
+            JSRuntime.InjectJsObjectReference("import", "./js/feedback.js");
+
+    protected override async Task OnInitializedAsync()
+    {
+        IJSObjectReference feedbackModule = await FeedbackModule;
+
+        await feedbackModule.InvokeVoidAsync("setRef", DotNetObjectReference.Create(this));
+
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            IJSObjectReference feedbackModule = await FeedbackModule;
+
+            await feedbackModule.InvokeVoidAsync("setupEventListeners");
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable]
+    public void FeedbackSubmittedSuccessfully()
+    {
+        Console.WriteLine("Form Submitted");
+    }
+
+    [JSInvokable]
+    public void HandleError(string message)
+    {
+        Console.WriteLine($"Error occurred: {message}");
+    }
+}

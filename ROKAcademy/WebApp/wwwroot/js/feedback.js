@@ -1,9 +1,11 @@
-﻿var dotnetRef = null;
+﻿const feedbackBtn = document.getElementById('submitFeedback');
+const feedbackForm = document.getElementById('feedback');
+var dotnetRef = null;
 
 const handleFeedbackSubmit = (event) => {
     event.preventDefault();
 
-    const feedbackForm = event.target;
+    const feedbackForm = document.getElementById('feedback');
     const formData = new FormData(feedbackForm);
 
     fetch("/", {
@@ -15,12 +17,19 @@ const handleFeedbackSubmit = (event) => {
         .catch((error) => alert(error));
 };
 
-export function setRef(ref) {
-    dotnetRef = ref;
+export function setupEventListeners() {
+    /* Setup Events */
+    feedbackBtn.addEventListener('click', () => {
+        console.log('Event fired from submit feedback.');
+
+        feedbackForm.submit();
+    });
+
+    feedbackForm.addEventListener('submit', handleFeedbackSubmit);
 }
 
-export function addFeedbackEventListener() {
-    document
-        .querySelector("form#feedback")
-        .addEventListener("submit", handleFeedbackSubmit);
+export function setRef(ref) {
+    dotnetRef = ref;
+
+    console.log("Ref was set.")
 }
