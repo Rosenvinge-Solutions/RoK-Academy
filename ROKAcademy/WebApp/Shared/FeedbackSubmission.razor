@@ -1,0 +1,58 @@
+﻿@inject IStringLocalizer<FeedbackSubmission> LocalizerFeedback
+@inject IJSRuntime JSRuntime
+
+<a class="nav-link py-1 px-0 h6" href="" data-bs-toggle="modal" data-bs-target="#feedbackModal"><i class="fa-solid fa-bug"></i></a>
+
+@code {
+    public Task<IJSObjectReference> FeedbackModule =>
+            JSRuntime.InjectJsObjectReference("import", "./js/feedback.js");
+
+    protected override async Task OnInitializedAsync()
+    {
+        IJSObjectReference feedbackModule = await FeedbackModule;
+
+        await feedbackModule.InvokeVoidAsync("setRef", DotNetObjectReference.Create(this));
+
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            IJSObjectReference feedbackModule = await FeedbackModule;
+
+            await feedbackModule.InvokeVoidAsync("setupEventListeners");
+
+            string[] feedbackSubmissionTexts = new[]
+            {
+                LocalizerFeedback["FeedbackSubmissionTitle"].Value, 
+                LocalizerFeedback["CancelFeedbackButtonText"].Value,
+                LocalizerFeedback["SubmitFeedbackButtonText"].Value,
+                LocalizerFeedback["OldQuestionPlaceholder"].Value,
+                LocalizerFeedback["OldQuestionLabel"].Value,
+                LocalizerFeedback["OldQuestionHelpText"].Value,
+                LocalizerFeedback["NewQuestionPlaceholder"].Value,
+                LocalizerFeedback["NewQuestionLabel"].Value,
+                LocalizerFeedback["NewQuestionHelpText"].Value,
+                LocalizerFeedback["NewAnswerPlaceholder"].Value,
+                LocalizerFeedback["NewAnswerLabel"].Value,
+                LocalizerFeedback["NewAnswerHelpText"].Value
+            };
+
+            await feedbackModule.InvokeVoidAsync("setFeedbackLanguage", (object)feedbackSubmissionTexts);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable]
+    public void FeedbackSubmittedSuccessfully()
+    {
+    }
+
+    [JSInvokable]
+    public void HandleError(string message)
+    {
+    }
+}
