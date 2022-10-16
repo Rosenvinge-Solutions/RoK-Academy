@@ -1,9 +1,8 @@
-﻿namespace WebApp.Shared.DataModels
+﻿namespace WebApp.Shared.DataModels;
+
+public enum Indicator
 {
-	public enum Indicator
-	{
-		Default,
-		Simple,
-		Enhanced
-	}
+	Default,
+	Simple,
+	Enhanced
 }
