@@ -39,15 +39,15 @@ export function setFeedbackLanguage(texts) {
 
     const oldQTextarea = feedbackModal.querySelector('#oldQuestion');
     const oldQLabel = feedbackModal.querySelector('label[for="oldQuestion"]');
-    const questionHelp = feedbackModal.querySelector('#questionHelp');
+    const questionHelp = feedbackModal.querySelector('#oldQuestionHelp');
 
     const newQTextarea = feedbackModal.querySelector('#newQuestion');
     const newQLabel = feedbackModal.querySelector('label[for="newQuestion"]');
-    const newQuestionHelp = feedbackModal.querySelector('#questionHelp');
+    const newQuestionHelp = feedbackModal.querySelector('#newQuestionHelp');
 
     const newATextarea = feedbackModal.querySelector('#newAnswer');
     const newALabel = feedbackModal.querySelector('label[for="newAnswer"]');
-    const newAnswerHelp = feedbackModal.querySelector('#questionHelp');
+    const newAnswerHelp = feedbackModal.querySelector('#newAnswerHelp');
 
     title.textContent = texts[0];
     cancelFeedbackBtn.textContent = texts[1];

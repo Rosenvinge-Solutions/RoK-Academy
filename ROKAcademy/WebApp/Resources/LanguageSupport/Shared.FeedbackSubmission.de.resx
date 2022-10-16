@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CancelFeedbackButtonText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Absagen</value>
   </data>
   <data name="FeedbackSubmissionTitle" xml:space="preserve">
-    <value>Found an issue regarding a question? Leave a feedback</value>
+    <value>Haben Sie ein Problem zu einer Frage gefunden? Hinterlassen Sie ein Feedback</value>
   </data>
   <data name="NewAnswerHelpText" xml:space="preserve">
-    <value>Fill out an answer linked to the question, if multiple, separate answers with semicolon.</value>
+    <value>Füllen Sie eine Antwort aus, die mit der Frage verknüpft ist. Wenn mehrere Antworten vorhanden sind, trennen Sie die Antworten mit Semikolon.</value>
   </data>
   <data name="NewAnswerLabel" xml:space="preserve">
-    <value>New Answer</value>
+    <value>Neue Antwort</value>
   </data>
   <data name="NewAnswerPlaceholder" xml:space="preserve">
-    <value>Leave the new answer here</value>
+    <value>Hinterlassen Sie die neue Antwort hier</value>
   </data>
   <data name="NewQuestionHelpText" xml:space="preserve">
-    <value>Fill out the new question.</value>
+    <value>Füllen Sie die neue Frage aus.</value>
   </data>
   <data name="NewQuestionLabel" xml:space="preserve">
-    <value>New Question</value>
+    <value>Neue Frage</value>
   </data>
   <data name="NewQuestionPlaceholder" xml:space="preserve">
-    <value>Leave the new question here</value>
+    <value>Lassen Sie die neue Frage hier</value>
   </data>
   <data name="OldQuestionHelpText" xml:space="preserve">
-    <value>Fill out with the existing question, which need to be replaced or leave blank if it does not exist.</value>
+    <value>Füllen Sie die vorhandene Frage aus, die ersetzt werden muss, oder lassen Sie sie leer, wenn sie nicht vorhanden ist.</value>
   </data>
   <data name="OldQuestionLabel" xml:space="preserve">
-    <value>Replace Question</value>
+    <value>Frage ersetzen</value>
   </data>
   <data name="OldQuestionPlaceholder" xml:space="preserve">
-    <value>Leave the question to be replaced here</value>
+    <value>Lassen Sie die zu ersetzende Frage hier</value>
   </data>
   <data name="SubmitFeedbackButtonText" xml:space="preserve">
-    <value>Send Feedback</value>
+    <value>Feedback abschicken</value>
   </data>
 </root>

@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CancelFeedbackButtonText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="FeedbackSubmissionTitle" xml:space="preserve">
-    <value>Found an issue regarding a question? Leave a feedback</value>
+    <value>Нашли проблему по вопросу? Оставить отзыв</value>
   </data>
   <data name="NewAnswerHelpText" xml:space="preserve">
-    <value>Fill out an answer linked to the question, if multiple, separate answers with semicolon.</value>
+    <value>Заполните ответ, связанный с вопросом, если их несколько, разделите ответы точкой с запятой.</value>
   </data>
   <data name="NewAnswerLabel" xml:space="preserve">
-    <value>New Answer</value>
+    <value>Новый ответ</value>
   </data>
   <data name="NewAnswerPlaceholder" xml:space="preserve">
-    <value>Leave the new answer here</value>
+    <value>Оставьте новый ответ здесь</value>
   </data>
   <data name="NewQuestionHelpText" xml:space="preserve">
-    <value>Fill out the new question.</value>
+    <value>Заполните новый вопрос.</value>
   </data>
   <data name="NewQuestionLabel" xml:space="preserve">
-    <value>New Question</value>
+    <value>Новый вопрос</value>
   </data>
   <data name="NewQuestionPlaceholder" xml:space="preserve">
-    <value>Leave the new question here</value>
+    <value>Оставьте новый вопрос здесь</value>
   </data>
   <data name="OldQuestionHelpText" xml:space="preserve">
-    <value>Fill out with the existing question, which need to be replaced or leave blank if it does not exist.</value>
+    <value>Заполните существующий вопрос, который необходимо заменить, или оставьте пустым, если он не существует.</value>
   </data>
   <data name="OldQuestionLabel" xml:space="preserve">
-    <value>Replace Question</value>
+    <value>Заменить вопрос</value>
   </data>
   <data name="OldQuestionPlaceholder" xml:space="preserve">
-    <value>Leave the question to be replaced here</value>
+    <value>Оставьте вопрос для замены здесь</value>
   </data>
   <data name="SubmitFeedbackButtonText" xml:space="preserve">
-    <value>Send Feedback</value>
+    <value>Отправить отзыв</value>
   </data>
 </root>

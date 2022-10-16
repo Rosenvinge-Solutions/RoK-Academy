@@ -133,10 +133,10 @@
 
     <div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
         <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+            <div class="modal-content bg-dark">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-dark" id="feedbackModalpLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5 text-light text-start" id="feedbackModalpLabel"></h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="feedback"
@@ -145,28 +145,28 @@
                           data-netlify="true">
                         <input type="hidden" name="form-name" value="feedback" />
                         <div class="form-floating">
-                            <textarea id="oldQuestion" class="form-control form-control-sm text-dark my-2" name="oldQuestion"></textarea>
-                            <label class="text-dark col-form-label col-form-label-sm" for="oldQuestion"></label>
-                            <div id="questionHelp" class="form-text text-start"></div>
+                            <textarea id="oldQuestion" class="form-control form-control-sm bg-dark text-light my-2" name="oldQuestion"></textarea>
+                            <label class="text-light col-form-label col-form-label-sm" for="oldQuestion"></label>
+                            <div id="oldQuestionHelp" class="form-text text-light text-start text-opacity-75"></div>
                         </div>
-                        <hr />
+                        <hr class="border border-light border-1 opacity-75" />
                         <div class="form-floating">
-                            <textarea id="newQuestion" class="form-control form-control-sm text-dark my-2" name="newQuestion"></textarea>
-                            <label class="text-dark col-form-label col-form-label-sm" for="newQuestion">New Question</label>
-                            <div id="newQuestionHelp" class="form-text text-start"></div>
+                            <textarea id="newQuestion" class="form-control form-control-sm bg-dark text-light my-2" name="newQuestion"></textarea>
+                            <label class="text-light col-form-label col-form-label-sm" for="newQuestion">New Question</label>
+                            <div id="newQuestionHelp" class="form-text text-light text-start text-opacity-75"></div>
                         </div>
-                        <hr />
+                        <hr class="border border-light border-1 opacity-75" />
                         <div class="form-floating">
-                            <textarea id="newAnswer" class="form-control form-control-sm text-dark my-2" name="newAnswer"></textarea>
-                            <label class="text-dark col-form-label col-form-label-sm" for="newAnswer"></label>
-                            <div id="newAnswerHelp" class="form-text text-start"></div>
+                            <textarea id="newAnswer" class="form-control form-control-sm bg-dark text-light my-2" name="newAnswer"></textarea>
+                            <label class="text-light col-form-label col-form-label-sm" for="newAnswer"></label>
+                            <div id="newAnswerHelp" class="form-text text-light text-start text-opacity-75"></div>
                         </div>
                         <div data-netlify-recaptcha="true"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="cancelFeedback" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"></button>
-                    <button type="button" id="submitFeedback" class="btn btn-sm btn-primary ms-auto"></button>
+                    <button type="button" id="submitFeedback" class="btn btn-sm btn-light ms-auto"></button>
                 </div>
             </div>
         </div>
