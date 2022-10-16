@@ -11,10 +11,12 @@
 }
 else
 {
-    <select class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
+    <select id="language-selector" class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
         @foreach (var culture in _supportedLanguages)
         {
-            <option disabled=@culture.IsDisabled value=@culture.Code>
+            <option disabled="@culture.IsDisabled"
+                    value="@culture.Code"
+                    title="@(culture.IsDisabled ? "Coming Soon" : "")">
                 @if (_isMobileDeviceMode)
                 {
                     @culture.Country
@@ -65,12 +67,18 @@ else
         string[] enCulture = Localization["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
         string[] deCulture = Localization["GermanCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
         string[] ruCulture = Localization["RussianCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] frCulture = Localization["FrenchCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] esCulture = Localization["SpanishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] ptCulture = Localization["PortugueseCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
 
         _supportedLanguages = new List<LanguageCodes>
             {
                 new (code: enCulture[0], displayName: enCulture[1], country: "🇺🇸"),
                 new (code: deCulture[0], displayName: deCulture[1], country: "🇩🇪"),
-                new (code: ruCulture[0], displayName: ruCulture[1], country: "🇷🇺")
+                new (code: ruCulture[0], displayName: ruCulture[1], country: "🇷🇺"),
+                new (code: frCulture[0], displayName: frCulture[1], country: "🇫🇷", true),
+                new (code: esCulture[0], displayName: esCulture[1], country: "🇪🇸", true),
+                new (code: ptCulture[0], displayName: ptCulture[1], country: "🇵🇹", true)
             };
 
         var module = await CultureModule;

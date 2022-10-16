@@ -123,13 +123,22 @@
   <data name="EnglishCulture" xml:space="preserve">
     <value>en-US; English (US)</value>
   </data>
+  <data name="FrenchCulture" xml:space="preserve">
+    <value>fr-FR; French (FR)</value>
+  </data>
   <data name="GermanCulture" xml:space="preserve">
     <value>de-DE; German (DE)</value>
   </data>
   <data name="Locale" xml:space="preserve">
     <value>en</value>
   </data>
+  <data name="PortugueseCulture" xml:space="preserve">
+    <value>pt-PT; Portuguese (PT)</value>
+  </data>
   <data name="RussianCulture" xml:space="preserve">
     <value>ru-RU; Russian (RU)</value>
+  </data>
+  <data name="SpanishCulture" xml:space="preserve">
+    <value>es-ES; Spanish (ES)</value>
   </data>
 </root>
