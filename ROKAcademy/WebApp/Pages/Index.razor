@@ -1,9 +1,8 @@
 ﻿@page "/"
+@inherits LayoutBase
 @inject HttpClient Http
 @inject IStringLocalizer<Index> Localization
 @inject IStringLocalizer<LanguageSelector> LocalizationLangauge
-@inject IJSRuntime JSRuntime
-
 
 <PageTitle>RoK Academy - @Localization["PageTitle"]</PageTitle>
 
@@ -147,7 +146,6 @@
 </div>
 
 @code {
-    private Task<IJSObjectReference>? _settingsModule;
     private Dictionary<string, string[]> emptyDictionary = new();
     private IReadOnlyDictionary<string, string[]>? questionsWithAnswers;
     private IReadOnlyDictionary<string, string[]>? answers;
@@ -158,17 +156,14 @@
     private bool enteredSearchMode = false;
     private bool enteredQueryModeChange = false;
     private string input = string.Empty;
-
-    public Task<IJSObjectReference> SettingsModule =>
-        _settingsModule ??= JSRuntime.InjectJsObjectReference("import", "./js/settings.js");
+    private string settingsModule = "./js/settings.js";
 
     protected override async Task OnInitializedAsync()
     {
-        if (SettingsModule is not null)
+        var module = await ImportModuleReferenceAsync(settingsModule);
+        if (module is not null)
         {
-            IJSObjectReference settings = await SettingsModule;
-
-            string rawMode = await settings.InvokeAsync<string>("getSearchQueryMode");
+            string rawMode = await module.InvokeAsync<string>("getSearchQueryMode");
 
             if (!string.IsNullOrWhiteSpace(rawMode))
             {
@@ -233,11 +228,10 @@
                     break;
             }
 
-            if (SettingsModule is not null)
+            var module = await ImportModuleReferenceAsync(settingsModule);
+            if (module is not null)
             {
-                IJSObjectReference settings = await SettingsModule;
-
-                await settings.InvokeVoidAsync("setSearchQueryMode", queryMode);
+                await module.InvokeVoidAsync("setSearchQueryMode", queryMode);
             }
         }
         finally

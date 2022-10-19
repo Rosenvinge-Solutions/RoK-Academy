@@ -1,5 +1,5 @@
-﻿@inject IStringLocalizer<FeedbackSubmission> LocalizerFeedback
-@inject IJSRuntime JSRuntime
+﻿@inherits LayoutBase
+@inject IStringLocalizer<FeedbackSubmission> LocalizerFeedback
 
 <a class="nav-link px-0 py-0 position-relative" href="" data-bs-toggle="modal" data-bs-target="#feedbackModal" @onclick="@SetFeedbackSubmissionLanguageAsync">
     <i class="fa-solid fa-bug"></i>
@@ -9,14 +9,12 @@
 </a>
 
 @code {
-    public Task<IJSObjectReference> FeedbackModule =>
-            JSRuntime.InjectJsObjectReference("import", "./js/feedback.js");
+    private string feedbackModule = "./js/feedback.js";
 
     protected override async Task OnInitializedAsync()
     {
-        IJSObjectReference feedbackModule = await FeedbackModule;
-
-        await feedbackModule.InvokeVoidAsync("setRef", DotNetObjectReference.Create(this));
+        IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
+        await module.InvokeVoidAsync("setRef", DotNetObjectReference.Create(this));
 
         await base.OnInitializedAsync();
     }
@@ -25,9 +23,8 @@
     {
         if (firstRender)
         {
-            IJSObjectReference feedbackModule = await FeedbackModule;
-
-            await feedbackModule.InvokeVoidAsync("setupEventListeners");
+            IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
+            await module.InvokeVoidAsync("setupEventListeners");
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -35,8 +32,7 @@
 
     private async Task SetFeedbackSubmissionLanguageAsync()
     {
-        IJSObjectReference feedbackModule = await FeedbackModule;
-
+        IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
         string[] feedbackSubmissionTexts = new[]
         {
                 LocalizerFeedback["FeedbackSubmissionTitle"].Value,
@@ -53,7 +49,7 @@
                 LocalizerFeedback["NewAnswerHelpText"].Value
     };
 
-        await feedbackModule.InvokeVoidAsync("setFeedbackLanguage", (object)feedbackSubmissionTexts);
+        await module.InvokeVoidAsync("setFeedbackLanguage", (object)feedbackSubmissionTexts);
     }
 
     [JSInvokable]

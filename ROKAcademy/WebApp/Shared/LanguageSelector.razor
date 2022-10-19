@@ -1,5 +1,5 @@
-﻿@implements IDisposable
-@inject IJSRuntime JsRuntime
+﻿@inherits LayoutBase
+@implements IDisposable
 @inject NavigationManager NavManager
 @inject IStringLocalizer<LanguageSelector> Localization
 
@@ -33,8 +33,8 @@ else
 @code {
     private event EventHandler? OnCultureChanged;
 
-    private Task<IJSObjectReference>? _cultureModule;
     private IEnumerable<LanguageCodes> _supportedLanguages = Enumerable.Empty<LanguageCodes>();
+    private string cultureModule = "./js/culture.js";
     private bool _isMobileDeviceMode = false;
 
     public CultureInfo Culture
@@ -46,7 +46,7 @@ else
 
             _ = Task.Run(async () =>
             {
-                var module = await CultureModule;
+                var module = await ImportModuleReferenceAsync(cultureModule);
 
                 await module.InvokeVoidAsync("setCulture", value.Name);
 
@@ -55,12 +55,9 @@ else
         }
     }
 
-    public Task<IJSObjectReference> CultureModule =>
-        _cultureModule ??= JsRuntime.InjectJsObjectReference("import", "./js/culture.js");
-
     protected override async Task OnInitializedAsync()
     {
-        await JsRuntime.InvokeVoidAsync("setDotNetReferenceForLanguageSelector", DotNetObjectReference.Create(this));
+        await JSRuntime.InvokeVoidAsync("setDotNetReferenceForLanguageSelector", DotNetObjectReference.Create(this));
 
         OnCultureChanged += RefreshPageOnCultureChanged;
 
@@ -81,8 +78,7 @@ else
                 new (code: ptCulture[0], displayName: ptCulture[1], country: "🇵🇹", true)
             };
 
-        var module = await CultureModule;
-
+        var module = await ImportModuleReferenceAsync(cultureModule);
         Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));
     }
 

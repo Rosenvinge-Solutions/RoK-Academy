@@ -1,6 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@inherits LayoutBase
 @inject IStringLocalizer<MainLayout> Localization
-@inject IJSRuntime JsRuntime
 
 <header class="mb-auto">
     <nav class="navbar">
@@ -43,17 +42,14 @@
 </footer>
 
 @code {
+    private string tooltipModule = "./js/tooltip.js";
     private DateOnly todaysDate;
-    private Task<IJSObjectReference>? tooltipModule;
-
-    public Task<IJSObjectReference> TooltipModule =>
-        tooltipModule ??= JsRuntime.InjectJsObjectReference("import", "./js/tooltip.js");
 
     protected override async Task OnInitializedAsync()
     {
         todaysDate = DateOnly.FromDateTime(DateTime.Now);
 
-        IJSObjectReference module = await TooltipModule;
+        IJSObjectReference module = await ImportModuleReferenceAsync(tooltipModule);
         await module.InvokeVoidAsync("initTooltips");
 
         await base.OnInitializedAsync();
