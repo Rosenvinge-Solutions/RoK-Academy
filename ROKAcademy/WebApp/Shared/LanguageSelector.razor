@@ -11,12 +11,13 @@
 }
 else
 {
-    <select id="language-selector" class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
+
+    @* <select id="language-selector" class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
         @foreach (var culture in _supportedLanguages)
         {
             <option disabled="@culture.IsDisabled"
-                    value="@culture.Code"
-                    title="@(culture.IsDisabled ? "Coming Soon" : "")">
+            value="@culture.Code"
+            title="@(culture.IsDisabled ? "Coming Soon" : "")">
                 @if (_isMobileDeviceMode)
                 {
                     @culture.Country
@@ -27,7 +28,52 @@ else
                 }
             </option>
         }
-    </select>
+    </select>*@
+
+    @if (currentLanguage is not null)
+    {
+        <div class="dropup-center dropup">
+            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-label="@(Localization["AriaLabel"])" aria-expanded="false">
+                <span class="fi fi-@currentLanguage.Country me-1"></span>
+                @if (_isMobileDeviceMode is false)
+                {
+                    @currentLanguage.DisplayName
+                }
+
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                @foreach (var lang in _supportedLanguages)
+                {
+                    @if (lang.IsDisabled)
+                    {
+                        <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Coming Soon">
+                            <a href="" class="dropdown-item disabled">
+                                <span class="fi fi-@lang.Country me-1"></span>
+
+                                @if (_isMobileDeviceMode is false)
+                                {
+                                    @lang.DisplayName
+                                }
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li @onclick="() => ChangeLanguage(lang)">
+                            <a href="" class="dropdown-item">
+                                <span class="fi fi-@lang.Country me-1"></span>
+
+                                @if (_isMobileDeviceMode is false)
+                                {
+                                    @lang.DisplayName
+                                }
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
 }
 
 @code {
@@ -36,6 +82,7 @@ else
     private IEnumerable<LanguageCodes> _supportedLanguages = Enumerable.Empty<LanguageCodes>();
     private string cultureModule = "./js/culture.js";
     private bool _isMobileDeviceMode = false;
+    private LanguageCodes? currentLanguage;
 
     public CultureInfo Culture
     {
@@ -70,16 +117,23 @@ else
 
         _supportedLanguages = new List<LanguageCodes>
             {
-                new (code: enCulture[0], displayName: enCulture[1], country: "🇺🇸"),
-                new (code: deCulture[0], displayName: deCulture[1], country: "🇩🇪"),
-                new (code: ruCulture[0], displayName: ruCulture[1], country: "🇷🇺"),
-                new (code: frCulture[0], displayName: frCulture[1], country: "🇫🇷", true),
-                new (code: esCulture[0], displayName: esCulture[1], country: "🇪🇸", true),
-                new (code: ptCulture[0], displayName: ptCulture[1], country: "🇵🇹", true)
+                new (code: enCulture[0], displayName: enCulture[1], country: "us"),
+                new (code: deCulture[0], displayName: deCulture[1], country: "de"),
+                new (code: ruCulture[0], displayName: ruCulture[1], country: "ru"),
+                new (code: frCulture[0], displayName: frCulture[1], country: "fr", true),
+                new (code: esCulture[0], displayName: esCulture[1], country: "es", true),
+                new (code: ptCulture[0], displayName: ptCulture[1], country: "pt", true)
             };
 
         var module = await ImportModuleReferenceAsync(cultureModule);
         Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));
+
+        currentLanguage = _supportedLanguages.Where(x => x.Code.Equals(Culture.Name)).First();
+    }
+
+    private void ChangeLanguage(LanguageCodes changedLanguage)
+    {
+        Culture = new CultureInfo(changedLanguage.Code);
     }
 
     private void RefreshPageOnCultureChanged(object? sender, EventArgs e)

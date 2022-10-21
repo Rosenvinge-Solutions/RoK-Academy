@@ -14,11 +14,11 @@ sealed class LanguageCodes
         IsDisabled = isDisabled;
     }
 
-    public string ?DisplayName { get; init; }
+    public string DisplayName { get; init; } = string.Empty;
 
-    public string ?Code { get; init; }
+    public string Code { get; init; } = string.Empty;
 
-    public string ?Country { get; init; }
+    public string Country { get; init; } = string.Empty;
 
-    public bool IsDisabled { get; init; }
+    public bool IsDisabled { get; init; } = default;
 }

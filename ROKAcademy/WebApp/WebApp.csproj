@@ -14,4 +14,9 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.9" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\libs\" />
+	  <Folder Include="wwwroot\libs\flag-icons\css\" />
+	</ItemGroup>
+
 </Project>

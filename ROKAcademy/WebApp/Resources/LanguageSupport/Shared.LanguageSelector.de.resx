@@ -121,24 +121,24 @@
     <value>Anzeigesprache auswählen</value>
   </data>
   <data name="EnglishCulture" xml:space="preserve">
-    <value>en-US; Englisch (US)</value>
+    <value>en-US; Englisch</value>
   </data>
   <data name="FrenchCulture" xml:space="preserve">
-    <value>fr-FR; Französisch (FR)</value>
+    <value>fr-FR; Französisch</value>
   </data>
   <data name="GermanCulture" xml:space="preserve">
-    <value>de-DE; Deutsch (DE)</value>
+    <value>de-DE; Deutsch</value>
   </data>
   <data name="Locale" xml:space="preserve">
     <value>de</value>
   </data>
   <data name="PortugueseCulture" xml:space="preserve">
-    <value>pt-PT; Portugiesisch (PT)</value>
+    <value>pt-PT; Portugiesisch</value>
   </data>
   <data name="RussianCulture" xml:space="preserve">
-    <value>ru-RU; Russisch (RU)</value>
+    <value>ru-RU; Russisch</value>
   </data>
   <data name="SpanishCulture" xml:space="preserve">
-    <value>es-ES; Spanisch (ES)</value>
+    <value>es-ES; Spanisch</value>
   </data>
 </root>

@@ -19,6 +19,11 @@ textarea.form-control:focus {
     border-color: rgb(206, 212, 218) !important;
 }
 
+#support-me.nav-link {
+    color: #FF5F5F !important;
+    font-weight: 700 !important;
+}
+
 /* custom scrollbar */
 ::-webkit-scrollbar {
     width: .5rem;

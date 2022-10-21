@@ -1,11 +1,8 @@
 ﻿@inherits LayoutBase
 @inject IStringLocalizer<FeedbackSubmission> LocalizerFeedback
 
-<a class="nav-link px-0 py-0 position-relative" href="" data-bs-toggle="modal" data-bs-target="#feedbackModal" @onclick="@SetFeedbackSubmissionLanguageAsync">
+<a class="nav-link px-0 py-0 text-light" href="" data-bs-toggle="modal" data-bs-target="#feedbackModal" @onclick="@SetFeedbackSubmissionLanguageAsync">
     <i class="fa-solid fa-bug"></i>
-    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning bg-opacity-75 border border-light rounded-circle">
-        <span class="visually-hidden">New Feature</span>
-    </span>
 </a>
 
 @code {

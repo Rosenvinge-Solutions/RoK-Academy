@@ -121,24 +121,24 @@
     <value>Выберите язык отображения</value>
   </data>
   <data name="EnglishCulture" xml:space="preserve">
-    <value>en-US; Английский (US)</value>
+    <value>en-US; Английский</value>
   </data>
   <data name="FrenchCulture" xml:space="preserve">
-    <value>fr-FR; Французский (FR)</value>
+    <value>fr-FR; Французский</value>
   </data>
   <data name="GermanCulture" xml:space="preserve">
-    <value>de-DE; Немецкий (DE)</value>
+    <value>de-DE; Немецкий </value>
   </data>
   <data name="Locale" xml:space="preserve">
     <value>ru</value>
   </data>
   <data name="PortugueseCulture" xml:space="preserve">
-    <value>pt-PT; португальский (PT)</value>
+    <value>pt-PT; португальский</value>
   </data>
   <data name="RussianCulture" xml:space="preserve">
-    <value>ru-RU; Русский (RU)</value>
+    <value>ru-RU; Русский</value>
   </data>
   <data name="SpanishCulture" xml:space="preserve">
-    <value>es-ES; испанский (ES)</value>
+    <value>es-ES; испанский</value>
   </data>
 </root>
