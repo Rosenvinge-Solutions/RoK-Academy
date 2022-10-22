@@ -8,6 +8,13 @@
     }
 }
 
+/* Scrolling dropdown menu */
+.scrollable-dropdown-menu {
+    height: auto;
+    max-height: 25vh;
+    overflow-y: scroll;
+}
+
 .table-responsive {
     max-height: 35rem !important;
     padding-right: .25em;
