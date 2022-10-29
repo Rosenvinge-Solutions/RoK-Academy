@@ -2,7 +2,7 @@
 
 public enum Indicator
 {
-	Default,
-	Simple,
-	Enhanced
+    Default,
+    Simple,
+    Enhanced
 }
