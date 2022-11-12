@@ -182,10 +182,21 @@
     private async Task InitializeDataAsync()
     {
         string localizationFileUrl = $"data/{LocalizationLangauge["Locale"]}.json";
+        string fallbackFileUrl = "data/en.json";
 
         try
         {
-            Dictionary<string, string[]>? tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
+            HttpResponseMessage msg = await Http.GetAsync(localizationFileUrl);
+            Dictionary<string, string[]>? tempDict = emptyDictionary;
+
+            if (msg.StatusCode is System.Net.HttpStatusCode.NotFound)
+            {
+                tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
+            }
+            else
+            {
+                tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
+            }
 
             questionsWithAnswers = tempDict;
         }
