@@ -19,4 +19,6 @@
 	  <Folder Include="wwwroot\libs\flag-icons\css\" />
 	</ItemGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties wwwroot_4data_4en_1json__JsonSchema="https://json-schema.org/draft-07/schema" /></VisualStudio></ProjectExtensions>
+
 </Project>
