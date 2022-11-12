@@ -7,6 +7,16 @@
 <PageTitle>RoK Academy - @Localization["PageTitle"]</PageTitle>
 
 <div class="mb-3">
+    @if (isDataSupportedByLanguage is false)
+    {
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"></use></svg>
+            <div>
+                @Localization["DataNotSupported"]
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <div class="input-group">
         <div class="form-floating">
             <input id="questionInput"
@@ -155,6 +165,7 @@
     private bool loadingAnswer = false;
     private bool enteredSearchMode = false;
     private bool enteredQueryModeChange = false;
+    private bool isDataSupportedByLanguage = true;
     private string input = string.Empty;
     private string settingsModule = "./js/settings.js";
 
@@ -192,10 +203,12 @@
             if (msg.StatusCode is System.Net.HttpStatusCode.NotFound)
             {
                 tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
+                isDataSupportedByLanguage = false;
             }
             else
             {
                 tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
+                isDataSupportedByLanguage = true;
             }
 
             questionsWithAnswers = tempDict;
