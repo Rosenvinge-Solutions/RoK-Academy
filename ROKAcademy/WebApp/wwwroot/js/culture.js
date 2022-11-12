@@ -1,6 +1,6 @@
 ﻿const cultureStorageKey = "Culture";
 
-window.setDotNetReferenceForLanguageSelector = (dotNetReference) => {
+export function setDotNetReferenceForLanguageSelector (dotNetReference) {
     const ref = dotNetReference;
 
     var matches = window.matchMedia("(min-width: 768px)").matches ? false : true;

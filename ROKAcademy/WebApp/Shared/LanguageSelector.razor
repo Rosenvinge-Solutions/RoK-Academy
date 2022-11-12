@@ -87,7 +87,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await JSRuntime.InvokeVoidAsync("setDotNetReferenceForLanguageSelector", DotNetObjectReference.Create(this));
+        IJSObjectReference module = await ImportModuleReferenceAsync(cultureModule);
+        await module.InvokeVoidAsync("setDotNetReferenceForLanguageSelector", DotNetObjectReference.Create(this));
 
         OnCultureChanged += RefreshPageOnCultureChanged;
 
@@ -108,7 +109,6 @@ else
                 new (code: ptCulture[0], displayName: ptCulture[1], country: "pt", true)
             };
 
-        var module = await ImportModuleReferenceAsync(cultureModule);
         Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));
 
         currentLanguage = _supportedLanguages.Where(x => x.Code.Equals(Culture.Name)).First();
