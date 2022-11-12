@@ -208,6 +208,9 @@
             }
 
             tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
+
+            Console.WriteLine($"Is data empty? : {tempDict?.Any()} - Count {tempDict?.Count}");
+
             if (tempDict?.Any() is false)
             {
                 tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
