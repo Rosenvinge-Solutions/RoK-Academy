@@ -11,25 +11,6 @@
 }
 else
 {
-
-    @* <select id="language-selector" class="form-select form-select-sm" size="1" aria-label="@(Localization["AriaLabel"])" @bind="Culture">
-        @foreach (var culture in _supportedLanguages)
-        {
-            <option disabled="@culture.IsDisabled"
-            value="@culture.Code"
-            title="@(culture.IsDisabled ? "Coming Soon" : "")">
-                @if (_isMobileDeviceMode)
-                {
-                    @culture.Country
-                }
-                else
-                {
-                    @culture.DisplayName
-                }
-            </option>
-        }
-    </select>*@
-
     @if (currentLanguage is not null)
     {
         <div class="dropup-center dropup">
@@ -46,15 +27,17 @@ else
                 {
                     @if (lang.IsDisabled)
                     {
-                        <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Coming Soon">
-                            <a href="" class="dropdown-item disabled">
-                                <span class="fi fi-@lang.Country me-1"></span>
+                        <li>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Coming Soon">
+                                <a href="" class="dropdown-item disabled">
+                                    <span class="fi fi-@lang.Country me-1"></span>
 
-                                @if (_isMobileDeviceMode is false)
-                                {
-                                    @lang.DisplayName
-                                }
-                            </a>
+                                    @if (_isMobileDeviceMode is false)
+                                    {
+                                        @lang.DisplayName
+                                    }
+                                </a>
+                            </span>
                         </li>
                     }
                     else
