@@ -194,28 +194,36 @@
     {
         string localizationFileUrl = $"data/{LocalizationLangauge["Locale"]}.json";
         string fallbackFileUrl = "data/en.json";
+        Dictionary<string, string[]>? tempDict = emptyDictionary;
 
         try
         {
             HttpResponseMessage msg = await Http.GetAsync(localizationFileUrl);
-            Dictionary<string, string[]>? tempDict = emptyDictionary;
 
             if (msg.StatusCode is System.Net.HttpStatusCode.NotFound)
             {
                 tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
                 isDataSupportedByLanguage = false;
-            }
-            else
-            {
-                tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
-                isDataSupportedByLanguage = true;
+                return;
             }
 
-            questionsWithAnswers = tempDict;
+            tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(localizationFileUrl);
+            if (tempDict?.Any() is false)
+            {
+                tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
+                isDataSupportedByLanguage = false;
+                return;
+            }
+
+            isDataSupportedByLanguage = true;
         }
         catch (Exception)
         {
             questionsWithAnswers = emptyDictionary;
+        }
+        finally
+        {
+            questionsWithAnswers = tempDict;
         }
     }
 
