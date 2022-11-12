@@ -104,9 +104,9 @@ else
                 new (code: enCulture[0], displayName: enCulture[1], country: "us"),
                 new (code: deCulture[0], displayName: deCulture[1], country: "de"),
                 new (code: ruCulture[0], displayName: ruCulture[1], country: "ru"),
-                new (code: frCulture[0], displayName: frCulture[1], country: "fr", true),
-                new (code: esCulture[0], displayName: esCulture[1], country: "es", true),
-                new (code: ptCulture[0], displayName: ptCulture[1], country: "pt", true)
+                new (code: frCulture[0], displayName: frCulture[1], country: "fr"),
+                new (code: esCulture[0], displayName: esCulture[1], country: "es"),
+                new (code: ptCulture[0], displayName: ptCulture[1], country: "pt")
             };
 
         Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));

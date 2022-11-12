@@ -117,49 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Clear input</value>
+  <data name="CancelFeedbackButtonText" xml:space="preserve">
+    <value>Annuler</value>
   </data>
-  <data name="DataNotSupported" xml:space="preserve">
-    <value>This data is not supported in english.</value>
+  <data name="FeedbackSubmissionTitle" xml:space="preserve">
+    <value>Vous avez trouvé un problème concernant une question ? Laisser un commentaire</value>
   </data>
-  <data name="InputHelpText" xml:space="preserve">
-    <value>The more specific, the faster your search query will be, and less possible answers.</value>
+  <data name="NewAnswerHelpText" xml:space="preserve">
+    <value>Remplissez une réponse liée à la question, si plusieurs, séparez les réponses par un point-virgule.</value>
   </data>
-  <data name="InputPlaceholderAnswersText" xml:space="preserve">
-    <value>Search for part of- or full answer</value>
+  <data name="NewAnswerLabel" xml:space="preserve">
+    <value>Nouvelle réponse</value>
   </data>
-  <data name="InputPlaceholderQuestionsText" xml:space="preserve">
-    <value>Search for part of- or full question</value>
+  <data name="NewAnswerPlaceholder" xml:space="preserve">
+    <value>Laissez la nouvelle réponse ici</value>
   </data>
-  <data name="LoadingText" xml:space="preserve">
-    <value>Loading data, please wait...</value>
+  <data name="NewQuestionHelpText" xml:space="preserve">
+    <value>Remplissez la nouvelle question.</value>
   </data>
-  <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
-    <value>OR</value>
+  <data name="NewQuestionLabel" xml:space="preserve">
+    <value>Nouvelle question</value>
   </data>
-  <data name="NoDataFoundText" xml:space="preserve">
-    <value>No answer associated with search query..</value>
+  <data name="NewQuestionPlaceholder" xml:space="preserve">
+    <value>Laissez la nouvelle question ici</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Answers to your questions</value>
+  <data name="OldQuestionHelpText" xml:space="preserve">
+    <value>Remplissez avec la question existante, qui doit être remplacée ou laissez vide si elle n'existe pas.</value>
   </data>
-  <data name="QuerySwitchHelpText" xml:space="preserve">
-    <value>Search in; Questions or Answers</value>
+  <data name="OldQuestionLabel" xml:space="preserve">
+    <value>Remplacer la question</value>
   </data>
-  <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Question input</value>
+  <data name="OldQuestionPlaceholder" xml:space="preserve">
+    <value>Laissez la question à remplacer ici</value>
   </data>
-  <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Search History</value>
-  </data>
-  <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Shows the 10 most recent queries</value>
-  </data>
-  <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Answer(s)</value>
-  </data>
-  <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Questions</value>
+  <data name="SubmitFeedbackButtonText" xml:space="preserve">
+    <value>Envoyer des commentaires</value>
   </data>
 </root>

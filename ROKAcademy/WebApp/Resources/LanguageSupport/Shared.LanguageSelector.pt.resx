@@ -117,49 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Clear input</value>
+  <data name="AriaLabel" xml:space="preserve">
+    <value>Selecione o idioma de exibição</value>
   </data>
-  <data name="DataNotSupported" xml:space="preserve">
-    <value>This data is not supported in english.</value>
+  <data name="EnglishCulture" xml:space="preserve">
+    <value>en-US; Inglês</value>
   </data>
-  <data name="InputHelpText" xml:space="preserve">
-    <value>The more specific, the faster your search query will be, and less possible answers.</value>
+  <data name="FrenchCulture" xml:space="preserve">
+    <value>fr-FR; Francês</value>
   </data>
-  <data name="InputPlaceholderAnswersText" xml:space="preserve">
-    <value>Search for part of- or full answer</value>
+  <data name="GermanCulture" xml:space="preserve">
+    <value>de-DE; Alemão</value>
   </data>
-  <data name="InputPlaceholderQuestionsText" xml:space="preserve">
-    <value>Search for part of- or full question</value>
+  <data name="Locale" xml:space="preserve">
+    <value>pt</value>
   </data>
-  <data name="LoadingText" xml:space="preserve">
-    <value>Loading data, please wait...</value>
+  <data name="PortugueseCulture" xml:space="preserve">
+    <value>pt-PT; Português</value>
   </data>
-  <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
-    <value>OR</value>
+  <data name="RussianCulture" xml:space="preserve">
+    <value>ru-RU; Russo</value>
   </data>
-  <data name="NoDataFoundText" xml:space="preserve">
-    <value>No answer associated with search query..</value>
-  </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Answers to your questions</value>
-  </data>
-  <data name="QuerySwitchHelpText" xml:space="preserve">
-    <value>Search in; Questions or Answers</value>
-  </data>
-  <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Question input</value>
-  </data>
-  <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Search History</value>
-  </data>
-  <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Shows the 10 most recent queries</value>
-  </data>
-  <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Answer(s)</value>
-  </data>
-  <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Questions</value>
+  <data name="SpanishCulture" xml:space="preserve">
+    <value>es-ES; Espanhol</value>
   </data>
 </root>

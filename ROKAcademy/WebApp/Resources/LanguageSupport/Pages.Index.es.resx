@@ -118,48 +118,48 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Clear input</value>
+    <value>Borrar entrada</value>
   </data>
   <data name="DataNotSupported" xml:space="preserve">
-    <value>This data is not supported in english.</value>
+    <value>Estos datos no están soportados en español.</value>
   </data>
   <data name="InputHelpText" xml:space="preserve">
-    <value>The more specific, the faster your search query will be, and less possible answers.</value>
+    <value>Cuanto más específica, más rápida será su consulta de búsqueda y menos respuestas posibles.</value>
   </data>
   <data name="InputPlaceholderAnswersText" xml:space="preserve">
-    <value>Search for part of- or full answer</value>
+    <value>Buscar una respuesta parcial o completa</value>
   </data>
   <data name="InputPlaceholderQuestionsText" xml:space="preserve">
-    <value>Search for part of- or full question</value>
+    <value>Buscar una parte de la pregunta o la pregunta completa</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
-    <value>Loading data, please wait...</value>
+    <value>Cargando datos, por favor espere...</value>
   </data>
   <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
-    <value>OR</value>
+    <value>O</value>
   </data>
   <data name="NoDataFoundText" xml:space="preserve">
-    <value>No answer associated with search query..</value>
+    <value>No hay respuesta asociada con la consulta de búsqueda..</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Answers to your questions</value>
+    <value>Respuestas a tus preguntas</value>
   </data>
   <data name="QuerySwitchHelpText" xml:space="preserve">
-    <value>Search in; Questions or Answers</value>
+    <value>Busca en; Preguntas o respuestas</value>
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Question input</value>
+    <value>Entrada de pregunta</value>
   </data>
   <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Search History</value>
+    <value>Buscar Historia</value>
   </data>
   <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Shows the 10 most recent queries</value>
+    <value>Muestra las 10 consultas más recientes</value>
   </data>
   <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Answer(s)</value>
+    <value>Respuesta(s)</value>
   </data>
   <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Questions</value>
+    <value>Preguntas</value>
   </data>
 </root>
