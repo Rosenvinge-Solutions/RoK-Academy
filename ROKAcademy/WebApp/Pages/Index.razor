@@ -202,7 +202,6 @@
 
             if (msg.StatusCode is System.Net.HttpStatusCode.NotFound)
             {
-                Console.WriteLine($"Data was not supported by language.");
                 tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
                 isDataSupportedByLanguage = false;
                 return;
@@ -212,25 +211,24 @@
 
             if (tempDict?.Any() is false)
             {
-                Console.WriteLine($"Original data was empty, getting fallback data.");
                 tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
                 isDataSupportedByLanguage = false;
                 return;
             }
 
-            Console.WriteLine($"Data IS supported by language.");
             isDataSupportedByLanguage = true;
         }
         catch (Exception)
         {
-            questionsWithAnswers = emptyDictionary;
-            Console.WriteLine($"Error occurred during fetch of data.");
+            tempDict = await Http.GetFromJsonAsync<Dictionary<string, string[]>>(fallbackFileUrl);
+            isDataSupportedByLanguage = false;
         }
         finally
         {
-            questionsWithAnswers = tempDict;
-            Console.WriteLine("Fetch is done.");
-            StateHasChanged();
+            if (tempDict?.Any() is true)
+            {
+                questionsWithAnswers = tempDict;
+            }
         }
     }
 
