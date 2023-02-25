@@ -1,0 +1,103 @@
+﻿<div class="table-responsive table-responsive-md my-5">
+    @if (Answers is null || QuestionsWithAnswers is null)
+    {
+        <LoadingIndicator Indicator="Indicator.Enhanced" />
+    }
+    else
+    {
+        @if (LoadingAnswers)
+        {
+            <LoadingIndicator Indicator="Indicator.Enhanced" />
+        }
+        else
+        {
+            @if (Answers.Any())
+            {
+                <ol class="list-group list-group-numbered">
+                    @foreach (var answer in Answers)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto text-start">
+                                <div class="fw-bold">@answer.Key</div>
+                                <div id="answer-text" class="text-success">
+                                    @foreach (string a in answer.Value)
+                                    {
+                                        @if (!a.Equals(answer.Value.Last()))
+                                        {
+                                            <span class="d-block">@(a) @Localization["MultilpleAnswersSeparatorText"]</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="d-block">@(a)</span>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ol>
+
+                @*<table class="table table-lg table-dark table-hover table-striped align-middle">
+    <thead>
+    <tr>
+    <th scope="col" class="text-start d-none d-sm-block">@Localization["TableHeaderQuestionText"]</th>
+    <th scope="col" class="text-start text-sm-end">@Localization["TableHeaderAnswerText"]</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    @foreach (var answer in Answers)
+    {
+    <tr>
+    <td class="text-start d-none d-sm-block">@answer.Key</td>
+    <td class="text-start text-sm-end">
+    @if (answer.Value.Length is 1)
+    {
+    <span class="d-block">@answer.Value.FirstOrDefault()</span>
+    }
+    else
+    {
+    @foreach (string a in answer.Value)
+    {
+    @if (!a.Equals(answer.Value.Last()))
+    {
+    <span class="d-block">@(a) @Localization["MultilpleAnswersSeparatorText"]</span>
+    }
+    else
+    {
+    <span class="d-block">@(a)</span>
+    }
+    }
+    }
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>*@
+            }
+            else
+            {
+                @if (SearchModeActive)
+                {
+                    <p>@Localization["NoDataFoundText"]</p>
+                }
+            }
+        }
+    }
+</div>
+
+@code {
+    [Inject]
+    public IStringLocalizer<WebApp.Pages.Index> Localization { get; set; }
+
+    [Parameter]
+    public IReadOnlyDictionary<string, string[]>? Answers { get; set; }
+
+    [Parameter]
+    public IReadOnlyDictionary<string, string[]>? QuestionsWithAnswers { get; set; }
+
+    [Parameter]
+    public bool SearchModeActive { get; set; } = false;
+
+    [Parameter]
+    public bool LoadingAnswers { get; set; } = false;
+}

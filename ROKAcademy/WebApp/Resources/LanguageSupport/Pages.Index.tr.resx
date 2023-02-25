@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClearSearchHistory" xml:space="preserve">
-    <value>Histoire claire</value>
+    <value>Geçmişi Temizle</value>
   </data>
   <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Effacer l'entrée</value>
+    <value>Girişi temizle</value>
   </data>
   <data name="DataNotSupported" xml:space="preserve">
-    <value>Ces données ne sont pas prises en charge en français.</value>
+    <value>Bu veri türkçe olarak desteklenmiyor.</value>
   </data>
   <data name="InputHelpText" xml:space="preserve">
-    <value>Plus votre recherche sera précise, plus votre recherche sera rapide et moins il y aura de réponses possibles.</value>
+    <value>Ne kadar spesifik olursa, arama sorgunuz o kadar hızlı olur ve olası cevaplar o kadar az olur.</value>
   </data>
   <data name="InputPlaceholderAnswersText" xml:space="preserve">
-    <value>Rechercher une partie de la réponse ou une réponse complète</value>
+    <value>Yanıtın bir kısmını veya tamamını arayın</value>
   </data>
   <data name="InputPlaceholderQuestionsText" xml:space="preserve">
-    <value>Rechercher une partie ou une question complète</value>
+    <value>Sorunun bir kısmını veya tamamını arayın</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
-    <value>Chargement des données, veuillez patienter...</value>
+    <value>Veriler yükleniyor, lütfen bekleyin...</value>
   </data>
   <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
-    <value>OU</value>
+    <value>VEYA</value>
   </data>
   <data name="NoDataFoundText" xml:space="preserve">
-    <value>Aucune réponse associée à la requête de recherche..</value>
+    <value>Arama sorgusuyla ilişkilendirilmiş yanıt yok..</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Réponses à vos questions</value>
+    <value>Sorularınızın yanıtları</value>
   </data>
   <data name="QuerySwitchHelpText" xml:space="preserve">
-    <value>Rechercher dans; Questions ou réponses</value>
+    <value>Araştır; Sorular veya Cevaplar</value>
   </data>
   <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Saisie des questions</value>
+    <value>Soru girişi</value>
   </data>
   <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Historique des recherches</value>
+    <value>Arama geçmişi</value>
   </data>
   <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Affiche les 10 requêtes les plus récentes</value>
+    <value>En son 10 sorguyu gösterir</value>
   </data>
   <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Réponses)</value>
+    <value>Yanıtlar)</value>
   </data>
   <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Des questions</value>
+    <value>Sorular</value>
   </data>
 </root>

@@ -64,11 +64,23 @@
             <li><h6 class="dropdown-header">@Localization["SearchHistoryDropdownHeaderText"]</h6></li>
             @if (searchHistory is not null)
             {
-                @foreach (string search in searchHistory)
+                @foreach (string search in searchHistory.Reverse())
                 {
                     <li><a class="dropdown-item" href="" @onclick="() => OnClick_SearchByHistory(search)">@search</a></li>
                 }
             }
+            <li>
+                <div class="d-block text-center my-2">
+                    <button class="btn btn-sm btn-outline-light"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="bottom"
+                     data-bs-custom-class="custom-tooltip"
+                     data-bs-title="@Localization["ClearSearchHistory"]"
+                     @onclick="ClearSearchHistory">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="d-flex align-items-center">
@@ -92,75 +104,17 @@
     </div>
 </div>
 
-<div class="table-responsive table-responsive-md my-5">
-    @if (answers is null || questionsWithAnswers is null)
-    {
-        <LoadingIndicator Indicator="Indicator.Enhanced" />
-    }
-    else
-    {
-        @if (loadingAnswer)
-        {
-            <LoadingIndicator Indicator="Indicator.Enhanced" />
-        }
-        else
-        {
-            @if (answers.Any())
-            {
-                <table class="table table-lg table-dark table-hover table-striped align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-start d-none d-sm-block">@Localization["TableHeaderQuestionText"]</th>
-                            <th scope="col" class="text-start text-sm-end">@Localization["TableHeaderAnswerText"]</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        @foreach (var answer in answers)
-                        {
-                            <tr>
-                                <td class="text-start d-none d-sm-block">@answer.Key</td>
-                                <td class="text-start text-sm-end">
-                                    @if (answer.Value.Length is 1)
-                                    {
-                                        <span class="d-block">@answer.Value.FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                        @foreach (string a in answer.Value)
-                                        {
-                                            @if (!a.Equals(answer.Value.Last()))
-                                            {
-                                                <span class="d-block">@(a) @Localization["MultilpleAnswersSeparatorText"]</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="d-block">@(a)</span>
-                                            }
-                                        }
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                @if (enteredSearchMode)
-                {
-                    <p>@Localization["NoDataFoundText"]</p>
-                }
-            }
-        }
-    }
-</div>
+<DisplayLyceumOfWisdom Answers="answers"
+                       QuestionsWithAnswers="questionsWithAnswers"
+                       LoadingAnswers="loadingAnswer"
+                       SearchModeActive="enteredSearchMode" />
 
 @code {
     private Dictionary<string, string[]> emptyDictionary = new();
     private IReadOnlyDictionary<string, string[]>? questionsWithAnswers;
     private IReadOnlyDictionary<string, string[]>? answers;
     private QueryMode queryMode;
-    private Stack<string> searchHistory = new(10);
+    private Queue<string>? searchHistory;
     private ElementReference inputReference;
     private bool loadingAnswer = false;
     private bool enteredSearchMode = false;
@@ -168,9 +122,11 @@
     private bool isDataSupportedByLanguage = true;
     private string input = string.Empty;
     private string settingsModule = "./js/settings.js";
+    private int searchHistoryCapacity = 10;
 
     protected override async Task OnInitializedAsync()
     {
+        searchHistory = new(searchHistoryCapacity);
         var module = await ImportModuleReferenceAsync(settingsModule);
         if (module is not null)
         {
@@ -236,6 +192,21 @@
     {
         input = $"{e?.Value}";
         enteredSearchMode = false;
+    }
+
+    private void ClearSearchHistory()
+    {
+        if (searchHistory is null)
+        {
+            return;
+        }
+
+        if (!searchHistory.Any())
+        {
+            return;
+        }
+
+        searchHistory.Clear();
     }
 
     private void ClearInput()
@@ -353,7 +324,12 @@
 
             if (!searchHistory.Contains(searchInput))
             {
-                searchHistory.Push(searchInput);
+                if (searchHistory.Count >= searchHistoryCapacity)
+                {
+                    searchHistory.Dequeue();
+                }
+
+                searchHistory.Enqueue(searchInput);
             }
 
             if (queryMode is 0)

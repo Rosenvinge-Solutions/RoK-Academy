@@ -117,52 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearSearchHistory" xml:space="preserve">
-    <value>Histoire claire</value>
+  <data name="CancelFeedbackButtonText" xml:space="preserve">
+    <value>İptal etmek</value>
   </data>
-  <data name="ClearSearchInputText" xml:space="preserve">
-    <value>Effacer l'entrée</value>
+  <data name="FeedbackSubmissionTitle" xml:space="preserve">
+    <value>Bir soruyla ilgili bir sorun mu buldunuz? Geri bildirim bırakın</value>
   </data>
-  <data name="DataNotSupported" xml:space="preserve">
-    <value>Ces données ne sont pas prises en charge en français.</value>
+  <data name="NewAnswerHelpText" xml:space="preserve">
+    <value>Soruyla bağlantılı bir yanıtı, birden fazlaysa noktalı virgülle ayrı yanıtları doldurun.</value>
   </data>
-  <data name="InputHelpText" xml:space="preserve">
-    <value>Plus votre recherche sera précise, plus votre recherche sera rapide et moins il y aura de réponses possibles.</value>
+  <data name="NewAnswerLabel" xml:space="preserve">
+    <value>Yeni Cevap</value>
   </data>
-  <data name="InputPlaceholderAnswersText" xml:space="preserve">
-    <value>Rechercher une partie de la réponse ou une réponse complète</value>
+  <data name="NewAnswerPlaceholder" xml:space="preserve">
+    <value>Yeni cevabı buraya bırakın</value>
   </data>
-  <data name="InputPlaceholderQuestionsText" xml:space="preserve">
-    <value>Rechercher une partie ou une question complète</value>
+  <data name="NewQuestionHelpText" xml:space="preserve">
+    <value>Yeni soruyu doldurun.</value>
   </data>
-  <data name="LoadingText" xml:space="preserve">
-    <value>Chargement des données, veuillez patienter...</value>
+  <data name="NewQuestionLabel" xml:space="preserve">
+    <value>Yeni Soru</value>
   </data>
-  <data name="MultilpleAnswersSeparatorText" xml:space="preserve">
-    <value>OU</value>
+  <data name="NewQuestionPlaceholder" xml:space="preserve">
+    <value>Yeni soruyu buraya bırakın</value>
   </data>
-  <data name="NoDataFoundText" xml:space="preserve">
-    <value>Aucune réponse associée à la requête de recherche..</value>
+  <data name="OldQuestionHelpText" xml:space="preserve">
+    <value>Değiştirilmesi gereken mevcut soruyla doldurun veya yoksa boş bırakın.</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Réponses à vos questions</value>
+  <data name="OldQuestionLabel" xml:space="preserve">
+    <value>Soruyu Değiştir</value>
   </data>
-  <data name="QuerySwitchHelpText" xml:space="preserve">
-    <value>Rechercher dans; Questions ou réponses</value>
+  <data name="OldQuestionPlaceholder" xml:space="preserve">
+    <value>Değiştirilecek soruyu burada bırakın</value>
   </data>
-  <data name="QuestionInputAriaLabel" xml:space="preserve">
-    <value>Saisie des questions</value>
-  </data>
-  <data name="SearchHistoryDropdownButtonText" xml:space="preserve">
-    <value>Historique des recherches</value>
-  </data>
-  <data name="SearchHistoryDropdownHeaderText" xml:space="preserve">
-    <value>Affiche les 10 requêtes les plus récentes</value>
-  </data>
-  <data name="TableHeaderAnswerText" xml:space="preserve">
-    <value>Réponses)</value>
-  </data>
-  <data name="TableHeaderQuestionText" xml:space="preserve">
-    <value>Des questions</value>
+  <data name="SubmitFeedbackButtonText" xml:space="preserve">
+    <value>Geribildirim yolla</value>
   </data>
 </root>

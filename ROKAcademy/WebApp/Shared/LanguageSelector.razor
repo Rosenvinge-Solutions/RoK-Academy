@@ -98,6 +98,7 @@ else
         string[] frCulture = Localization["FrenchCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
         string[] esCulture = Localization["SpanishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
         string[] ptCulture = Localization["PortugueseCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+        string[] trCulture = Localization["TurkishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
 
         _supportedLanguages = new List<LanguageCodes>
             {
@@ -106,7 +107,8 @@ else
                 new (code: ruCulture[0], displayName: ruCulture[1], country: "ru"),
                 new (code: frCulture[0], displayName: frCulture[1], country: "fr"),
                 new (code: esCulture[0], displayName: esCulture[1], country: "es"),
-                new (code: ptCulture[0], displayName: ptCulture[1], country: "pt")
+                new (code: ptCulture[0], displayName: ptCulture[1], country: "pt"),
+                new (code: trCulture[0], displayName: trCulture[1], country: "tr")
             };
 
         Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));

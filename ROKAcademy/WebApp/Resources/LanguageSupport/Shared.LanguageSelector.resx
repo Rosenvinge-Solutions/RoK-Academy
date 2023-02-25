@@ -141,4 +141,7 @@
   <data name="SpanishCulture" xml:space="preserve">
     <value>es-ES; Spanish</value>
   </data>
+  <data name="TurkishCulture" xml:space="preserve">
+    <value>tr-TR; Turkish</value>
+  </data>
 </root>
