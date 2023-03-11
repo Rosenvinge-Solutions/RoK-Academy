@@ -150,12 +150,17 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <form hidden 
-          data-netlify-recaptcha="true"
-          data-netlify="true">
-        <input type="hidden" name="form-name" value="feedback" />
-        <div data-netlify-recaptcha="true" />
-    </form>
+    <div id="feedback-container">
+        <form hidden
+              data-netlify-recaptcha="true"
+              data-netlify="true">
+            <input type="hidden" name="form-name" value="feedback" />
+            <textarea name="oldQuestion"></textarea>
+            <textarea name="newQuestion"></textarea>
+            <textarea name="newAnswer"></textarea>
+            <div data-netlify-recaptcha="true"></div>
+        </form>
+    </div>
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 

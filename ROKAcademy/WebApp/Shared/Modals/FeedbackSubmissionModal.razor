@@ -1,0 +1,77 @@
+﻿<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark">
+            @if (model is not null)
+            {
+                <EditForm id="feedback" name="feedback" EditContext="@context" OnValidSubmit="HandleValidFeedbackSubmitAsync"
+                          netlify-honeypot="bot-field"
+                          data-netlify-recaptcha="true"
+                          data-netlify="true">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-light text-start" id="feedbackModalpLabel"></h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" @onclick="CloseFeedback"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        @if (!string.IsNullOrEmpty(feedbackSubmitMessage))
+                        {
+                            @if (feedbackSubmitSuccess)
+                            {
+                                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"></use></svg>
+                                    <div>
+                                        @feedbackSubmitMessage
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"></use></svg>
+                                    <div>
+                                        @feedbackSubmitMessage
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                        }
+
+                        <input type="hidden" name="form-name" value="feedback" />
+                        <p class="visually-hidden">
+                            <label>Don't fill out this, if you're human: <input name="bot-field" @bind-value="@model.BotField" /></label>
+                            <ValidationMessage For="() => model.BotField" />
+                        </p>
+
+                        <div class="form-floating">
+                            <InputTextArea id="oldQuestion" class="form-control form-control-sm bg-dark text-light my-2" name="oldQuestion" @bind-Value="@model.ReplacementQuestion"></InputTextArea>
+                            <label class="text-light col-form-label col-form-label-sm" for="oldQuestion">Replace Question</label>
+                            <div id="oldQuestionHelp" class="form-text text-light text-start text-opacity-75"></div>
+                            <ValidationMessage For="() => model.ReplacementQuestion" />
+                        </div>
+                        <hr class="border border-light border-1 opacity-75" />
+                        <div class="form-floating">
+                            <InputTextArea id="newQuestion" class="form-control form-control-sm bg-dark text-light my-2" name="newQuestion" @bind-Value="@model.Question"></InputTextArea>
+                            <label class="text-light col-form-label col-form-label-sm" for="newQuestion">New Question</label>
+                            <div id="newQuestionHelp" class="form-text text-light text-start text-opacity-75"></div>
+                            <ValidationMessage For="() => model.Question" />
+                        </div>
+                        <hr class="border border-light border-1 opacity-75" />
+                        <div class="form-floating">
+                            <InputTextArea id="newAnswer" class="form-control form-control-sm bg-dark text-light my-2" name="newAnswer" @bind-Value="@model.Answer"></InputTextArea>
+                            <label class="text-light col-form-label col-form-label-sm" for="newAnswer">New Answer</label>
+                            <div id="newAnswerHelp" class="form-text text-light text-start text-opacity-75"></div>
+                            <ValidationMessage For="() => model.Answer" />
+                        </div>
+
+                        <div id="form-validation" class="my-2" data-netlify-recaptcha="true"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="cancelFeedback" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" @onclick="CloseFeedback"></button>
+                        <button type="submit" id="submitFeedback" class="btn btn-sm btn-light ms-auto"></button>
+                    </div>
+                </EditForm>
+            }
+        </div>
+    </div>
+</div>
