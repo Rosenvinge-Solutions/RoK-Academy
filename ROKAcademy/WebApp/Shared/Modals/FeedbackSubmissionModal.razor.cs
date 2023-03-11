@@ -94,7 +94,7 @@ namespace WebApp.Shared.Modals
         [JSInvokable]
         public void FeedbackSubmittedSuccessfully()
         {
-            Console.WriteLine("Response from JS");
+
         }
 
         [JSInvokable]

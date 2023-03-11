@@ -18,15 +18,18 @@ const handleFeedbackSubmit = (event) => {
 };
 
 export function handleFeedbackSubmission() {
+    feedbackForm.submit();
     const formData = new FormData(feedbackForm);
 
-    fetch("/", {
+    fetch("", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
     })
         .then(() => dotnetRef.invokeMethodAsync("FeedbackSubmittedSuccessfully"))
         .catch((error) => dotnetRef.invokeMethodAsync("HandleError", error));
+
+    return false;
 }
 
 export function setupEventListeners() {
