@@ -7,6 +7,12 @@
  * Base structure
  */
 
+.bi {
+    width: 1em;
+    height: 1em;
+    fill: currentcolor;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
 }
@@ -143,6 +149,8 @@ textarea.form-control:focus {
 
 .validation-message {
     color: red;
+    text-align: start;
+    font-size: small;
 }
 
 #blazor-error-ui {
