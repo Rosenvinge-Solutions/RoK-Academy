@@ -1,0 +1,31 @@
+﻿@page "/feedback/submission"
+@inject NavigationManager NavManager
+@implements IDisposable
+
+@if(Guid.Equals(Guid.Empty, SubmissionID))
+{
+    NavManager.NavigateTo("/");
+}
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "guid")]
+    public Guid SubmissionID { get; set; }
+
+    protected override void OnInitialized()
+    {
+        NavManager.LocationChanged += ClearCacheOnLocationChanged;
+
+        base.OnInitialized();
+    }
+
+    private void ClearCacheOnLocationChanged(object? sender ,LocationChangedEventArgs e)
+    {
+        SubmissionID = Guid.Empty;
+    }
+
+    public void Dispose()
+    {
+        NavManager.LocationChanged -= ClearCacheOnLocationChanged;
+    }
+}

@@ -15,6 +15,7 @@ namespace WebApp.Shared.Modals
 
         private EditContext context;
         private FeedbackFormModel model = new();
+        private Guid submissionId = Guid.Empty;
         private bool feedbackSubmitSuccess = false;
         private string feedbackSubmitMessage = string.Empty;
 
@@ -33,6 +34,7 @@ namespace WebApp.Shared.Modals
 
         private void CloseFeedback()
         {
+            submissionId = Guid.Empty;
             feedbackSubmitMessage = string.Empty;
             feedbackSubmitSuccess = false;
 
@@ -47,8 +49,10 @@ namespace WebApp.Shared.Modals
             {
                 var encodedData = new FormUrlEncodedContent(model.FormData);
 
-                var request = new HttpRequestMessage(HttpMethod.Post, requestUri: string.Empty);
-                request.Content = encodedData;
+                HttpRequestMessage request = new(HttpMethod.Post, "")
+                {
+                    Content = encodedData
+                };
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
                 var response = await Client.SendAsync(request);
@@ -62,6 +66,21 @@ namespace WebApp.Shared.Modals
                 }
 
                 feedbackSubmitMessage = "Something went wrong while making the feedback request.";
+            }
+            finally
+            {
+                
+            }
+        }
+
+        private void HandleFeedbackSubmission()
+        {
+            try
+            {
+                submissionId = Guid.NewGuid();
+
+                feedbackSubmitSuccess = true;
+                feedbackSubmitMessage = "Your request was sent successfully.";
             }
             finally
             {

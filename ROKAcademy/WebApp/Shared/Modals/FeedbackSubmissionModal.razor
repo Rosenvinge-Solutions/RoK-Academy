@@ -3,7 +3,7 @@
         <div class="modal-content bg-dark">
             @if (model is not null)
             {
-                <EditForm id="feedback" name="feedback" EditContext="@context" OnValidSubmit="HandleValidFeedbackSubmitAsync"
+                <EditForm id="feedback" name="feedback" action="@($"/feedback/submission?{submissionId}")" EditContext="@context" OnValidSubmit="HandleFeedbackSubmission"
                           netlify-honeypot="bot-field"
                           data-netlify-recaptcha="true"
                           data-netlify="true">
