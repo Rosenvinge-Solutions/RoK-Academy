@@ -150,15 +150,14 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <div id="feedback-container">
-        <form name="feedback" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true" hidden>
-            <input type="hidden" name="form-name" value="feedback" />
-            <textarea name="oldQuestion"></textarea>
-            <textarea name="newQuestion"></textarea>
-            <textarea name="newAnswer"></textarea>
-            <div data-netlify-recaptcha="true"></div>
-        </form>
-    </div>
+    <div id="feedback-container"></div>
+    <form name="feedback" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true" hidden>
+        <input type="hidden" name="form-name" value="feedback" />
+        <textarea name="oldQuestion"></textarea>
+        <textarea name="newQuestion"></textarea>
+        <textarea name="newAnswer"></textarea>
+        <div data-netlify-recaptcha="true"></div>
+    </form>
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 
