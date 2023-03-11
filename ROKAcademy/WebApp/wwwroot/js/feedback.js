@@ -5,7 +5,7 @@ var dotnetRef = null;
 const handleFeedbackSubmit = (event) => {
     event.preventDefault();
 
-    const feedbackForm = document.getElementById('feedback');
+    const feedbackForm = event.target;
     const formData = new FormData(feedbackForm);
 
     fetch("/", {

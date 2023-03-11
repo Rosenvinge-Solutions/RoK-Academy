@@ -21,7 +21,7 @@
         if (firstRender)
         {
             IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
-            //await module.InvokeVoidAsync("setupEventListeners");
+            await module.InvokeVoidAsync("setupEventListeners");
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -52,6 +52,7 @@
     [JSInvokable]
     public void FeedbackSubmittedSuccessfully()
     {
+        Console.WriteLine("Response from JS");
     }
 
     [JSInvokable]
