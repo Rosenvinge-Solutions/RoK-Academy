@@ -18,6 +18,7 @@ namespace WebApp.Shared.Modals
         private Guid submissionId = Guid.Empty;
         private bool feedbackSubmitSuccess = false;
         private string feedbackSubmitMessage = string.Empty;
+        private string submissionAction = string.Empty;
 
         protected override void OnInitialized()
         {
@@ -35,6 +36,7 @@ namespace WebApp.Shared.Modals
         private void CloseFeedback()
         {
             submissionId = Guid.Empty;
+            submissionAction = $"/feedback/submission";
             feedbackSubmitMessage = string.Empty;
             feedbackSubmitSuccess = false;
 
@@ -81,6 +83,7 @@ namespace WebApp.Shared.Modals
 
                 feedbackSubmitSuccess = true;
                 feedbackSubmitMessage = "Your request was sent successfully.";
+                submissionAction = $"/feedback/submission?guid={submissionId}";
             }
             finally
             {
