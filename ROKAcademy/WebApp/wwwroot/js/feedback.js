@@ -14,8 +14,20 @@ const handleFeedbackSubmit = (event) => {
         body: new URLSearchParams(formData).toString(),
     })
         .then(() => dotnetRef.invokeMethodAsync("FeedbackSubmittedSuccessfully"))
-        .catch((error) => alert(error));
+        .catch((error) => dotnetRef.invokeMethodAsync("HandleError", error));
 };
+
+export function handleFeedbackSubmission() {
+    const formData = new FormData(feedbackForm);
+
+    fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+    })
+        .then(() => dotnetRef.invokeMethodAsync("FeedbackSubmittedSuccessfully"))
+        .catch((error) => dotnetRef.invokeMethodAsync("HandleError", error));
+}
 
 export function setupEventListeners() {
     /* Setup Events */

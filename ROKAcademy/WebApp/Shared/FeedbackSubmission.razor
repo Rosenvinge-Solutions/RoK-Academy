@@ -6,22 +6,20 @@
 </a>
 
 @code {
-    private string feedbackModule = "./js/feedback.js";
+    private const string feedbackModule = "./js/feedback.js";
 
     protected override async Task OnInitializedAsync()
     {
         IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
         await module.InvokeVoidAsync("setRef", DotNetObjectReference.Create(this));
-
-        await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
-            await module.InvokeVoidAsync("setupEventListeners");
+            //IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
+            //await module.InvokeVoidAsync("setupEventListeners");
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -58,5 +56,6 @@
     [JSInvokable]
     public void HandleError(string message)
     {
+        Console.WriteLine(message);
     }
 }

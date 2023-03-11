@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using WebApp.Shared.DataModels;
 
@@ -7,9 +8,6 @@ namespace WebApp.Shared.Modals
 {
     public partial class FeedbackSubmissionModal
     {
-        [Inject]
-        public HttpClient Client { get; set; }
-
         [Inject]
         public NavigationManager NavManager { get; set; }
 
@@ -19,12 +17,16 @@ namespace WebApp.Shared.Modals
         private bool feedbackSubmitSuccess = false;
         private string feedbackSubmitMessage = string.Empty;
         private string submissionAction = string.Empty;
+        private string feedbackModule = "./js/feedback.js";
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             MakeContext();
 
-            base.OnInitialized();
+            IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
+            await module.InvokeVoidAsync("setRef", DotNetObjectReference.Create(this));
+
+            await base.OnInitializedAsync();
         }
 
         private void MakeContext()
@@ -57,9 +59,9 @@ namespace WebApp.Shared.Modals
                 };
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-                var response = await Client.SendAsync(request);
+                //var response = await Client.SendAsync(request);
 
-                feedbackSubmitSuccess = response.IsSuccessStatusCode;
+                //feedbackSubmitSuccess = response.IsSuccessStatusCode;
 
                 if (feedbackSubmitSuccess)
                 {
@@ -71,25 +73,34 @@ namespace WebApp.Shared.Modals
             }
             finally
             {
-                
+
             }
         }
 
-        private void HandleFeedbackSubmission()
+        private async Task HandleFeedbackSubmissionAsync()
         {
             try
             {
-                submissionId = Guid.NewGuid();
-
-                feedbackSubmitSuccess = true;
-                feedbackSubmitMessage = "Your request was sent successfully.";
-                submissionAction = $"/feedback/submission?guid={submissionId}";
+                IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
+                await module.InvokeVoidAsync("handleFeedbackSubmission");
             }
             finally
             {
                 context.MarkAsUnmodified();
                 model = new();
             }
+        }
+
+        [JSInvokable]
+        public void FeedbackSubmittedSuccessfully()
+        {
+            Console.WriteLine("Response from JS");
+        }
+
+        [JSInvokable]
+        public void HandleError(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }

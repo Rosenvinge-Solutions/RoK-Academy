@@ -1,9 +1,11 @@
-﻿<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+﻿@inherits LayoutBase
+
+<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content bg-dark">
             @if (model is not null)
             {
-                <EditForm id="feedback" name="feedback" method="POST" EditContext="@context" OnValidSubmit="HandleFeedbackSubmission"
+                <EditForm id="feedback" name="feedback" EditContext="@context" OnValidSubmit="HandleFeedbackSubmissionAsync"
                           netlify-honeypot="bot-field"
                           data-netlify-recaptcha="true"
                           netlify>
