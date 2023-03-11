@@ -5,10 +5,7 @@
         <div class="modal-content bg-dark">
             @if (model is not null)
             {
-                <EditForm id="feedback" name="feedback" EditContext="@context" OnValidSubmit="HandleFeedbackSubmissionAsync"
-                          netlify-honeypot="bot-field"
-                          data-netlify-recaptcha="true"
-                          netlify>
+                <EditForm id="feedback" name="feedback" EditContext="@context" OnValidSubmit="HandleFeedbackSubmissionAsync">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5 text-light text-start" id="feedbackModalpLabel"></h1>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" @onclick="CloseFeedback"></button>
