@@ -48,7 +48,7 @@ namespace WebApp.Shared.Modals
         {
             try
             {
-                var submitResponse = await HttpClient.PostAsJsonAsync("/", model);
+                var submitResponse = await HttpClient.PostAsJsonAsync("/feedback", model);
                 feedbackSubmitSuccess = submitResponse.IsSuccessStatusCode;
 
                 if (!feedbackSubmitSuccess)
