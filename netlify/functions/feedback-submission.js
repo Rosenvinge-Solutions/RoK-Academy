@@ -1,4 +1,5 @@
 exports.handler = function(event, context, callback) {
+    console.log(event.body);
     const formData = new FormData(event.body);
     console.log(formData);
   
