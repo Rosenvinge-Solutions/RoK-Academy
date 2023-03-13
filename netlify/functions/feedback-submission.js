@@ -1,6 +1,9 @@
+const axios = require('axios');
+
 exports.handler = async function(event, context) {
     try {
-        const { r, q, a } = JSON.parse(event.body);
+        const formData = JSON.parse(event.body);
+        const response = await axios.post('https://example.com/submit-form', formData);
 
         return {
             statusCode: 200,
