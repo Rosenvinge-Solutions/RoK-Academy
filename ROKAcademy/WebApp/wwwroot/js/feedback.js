@@ -1,24 +1,23 @@
-﻿const feedbackBtn = document.getElementById('submitFeedback');
+﻿//const feedbackBtn = document.getElementById('submitFeedback');
 const feedbackForm = document.getElementById('feedback');
 var dotnetRef = null;
 
-const handleFeedbackSubmit = (event) => {
-    event.preventDefault();
+//const handleFeedbackSubmit = (event) => {
+//    event.preventDefault();
 
-    const feedbackForm = event.target;
-    const formData = new FormData(feedbackForm);
+//    const feedbackForm = event.target;
+//    const formData = new FormData(feedbackForm);
 
-    fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
-    })
-        .then(() => dotnetRef.invokeMethodAsync("FeedbackSubmittedSuccessfully"))
-        .catch((error) => dotnetRef.invokeMethodAsync("HandleError", error));
-};
+//    fetch("/", {
+//        method: "POST",
+//        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//        body: new URLSearchParams(formData).toString(),
+//    })
+//        .then(() => dotnetRef.invokeMethodAsync("FeedbackSubmittedSuccessfully"))
+//        .catch((error) => dotnetRef.invokeMethodAsync("HandleError", error));
+//};
 
 export function handleFeedbackSubmission() {
-    feedbackForm.submit();
     const formData = new FormData(feedbackForm);
 
     fetch("/", {
@@ -28,8 +27,6 @@ export function handleFeedbackSubmission() {
     })
         .then(() => dotnetRef.invokeMethodAsync("FeedbackSubmittedSuccessfully"))
         .catch((error) => dotnetRef.invokeMethodAsync("HandleError", error));
-
-    return false;
 }
 
 export function setupEventListeners() {
