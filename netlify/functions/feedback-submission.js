@@ -1,36 +1,26 @@
-exports.handler = async function(event, context) {
-    console.log(event.body);
-    const { r, q, a } = JSON.parse(event.body);
-
-    const data = {
-        r,
-        q,
-        a
-      };
-
-    console.log(data);
-
-    try {
-        const response = await fetch('https://www.rokacademy.com/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+exports.handler = function(event, context, callback) {
+    const formData = new FormData(event.body);
+    console.log(formData);
+  
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(result) {
+        callback(null, {
+          statusCode: 200,
+          body: JSON.stringify({ message: 'Form submission successful' })
         });
-        return {
-            statusCode: 200,
-            body: JSON.stringify({
-                message: 'Form submission successful'
-            })
-        }
-    } catch (error) {
+      },
+      error: function(error) {
         console.error(error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'Form submission failed'
-            })
-        }
-    }
-};
+        callback(null, {
+          statusCode: 500,
+          body: JSON.stringify({ message: 'Form submission failed' })
+        });
+      }
+    });
+  };
+  
