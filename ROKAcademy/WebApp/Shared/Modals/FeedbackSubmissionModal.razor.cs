@@ -48,7 +48,7 @@ namespace WebApp.Shared.Modals
         {
             try
             {
-                var submitResponse = await HttpClient.PostAsJsonAsync("/feedback", model);
+                var submitResponse = await HttpClient.PostAsJsonAsync("/", model);
                 feedbackSubmitSuccess = submitResponse.IsSuccessStatusCode;
 
                 if (!feedbackSubmitSuccess)
@@ -60,6 +60,10 @@ namespace WebApp.Shared.Modals
                 feedbackSubmitMessage = "Message was sent successfully.";
                 //IJSObjectReference module = await ImportModuleReferenceAsync(feedbackModule);
                 //await module.InvokeVoidAsync("handleFeedbackSubmission");
+            }
+            catch
+            {
+                feedbackSubmitMessage = "An error occurred during submission.";
             }
             finally
             {
