@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using WebApp.Shared.DataModels;
 
 namespace WebApp.Shared.Modals
@@ -48,7 +50,8 @@ namespace WebApp.Shared.Modals
         {
             try
             {
-                var submitResponse = await HttpClient.PostAsJsonAsync("/", model);
+                var stringContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                var submitResponse = await HttpClient.PostAsJsonAsync("/.netlify/functions/feedback-submission", stringContent);
                 feedbackSubmitSuccess = submitResponse.IsSuccessStatusCode;
 
                 if (!feedbackSubmitSuccess)
