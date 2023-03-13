@@ -1,4 +1,5 @@
 exports.handler = async function(event, context) {
+    console.log(event.body);
     const { r, q, a } = JSON.parse(event.body);
 
     const data = {
