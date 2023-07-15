@@ -51,14 +51,17 @@
             <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <button id="searchHistoryDropdownmenu"
-                class="btn @(!searchHistory.Any() ? "btn-outline-light" : "btn-light") dropdown-toggle"
-                disabled="@(!searchHistory.Any())"
-                type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-            <span class="d-inline d-sm-none"><i class="fa-solid fa-clock-rotate-left"></i></span>
-            <span class="d-none d-sm-inline">@Localization["SearchHistoryDropdownButtonText"]</span>
-        </button>
+        @if (disableSettingsFeature is false)
+        {
+            <button id="searchHistoryDropdownmenu"
+                    class="btn @(!searchHistory.Any() ? "btn-outline-light" : "btn-light") dropdown-toggle"
+                    disabled="@(!searchHistory.Any())"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <span class="d-inline d-sm-none"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                <span class="d-none d-sm-inline">@Localization["SearchHistoryDropdownButtonText"]</span>
+            </button>
+        }
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark scrollable-dropdown-menu" aria-labelledby="searchHistoryDropdownmenu">
             <li><h6 class="dropdown-header">@Localization["SearchHistoryDropdownHeaderText"]</h6></li>
@@ -70,38 +73,41 @@
                 }
             }
             <li>
-                <div class="d-block text-center my-2">
-                    <button class="btn btn-sm btn-outline-light"
-                     data-bs-toggle="tooltip"
-                     data-bs-placement="bottom"
-                     data-bs-custom-class="custom-tooltip"
-                     data-bs-title="@Localization["ClearSearchHistory"]"
-                     @onclick="ClearSearchHistory">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <div class="d-block text-end my-2 mx-3">
+                    <button class="btn btn-sm btn-outline-light ms-auto"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-title="@Localization["ClearSearchHistory"]"
+                            @onclick="ClearSearchHistory">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
             </li>
         </ul>
     </div>
-    <div class="d-flex align-items-center">
-        <div id="questionHelp" class="form-text text-start flex-fill d-none d-sm-block">@Localization["InputHelpText"]</div>
-        <div class="form-check form-switch ms-auto">
-            <input class="form-check-input"
-                   type="checkbox"
-                   role="switch"
-                   id="querySearchSwitcher"
-                   disabled="@enteredQueryModeChange"
-                   checked="@(queryMode is 0 ? false : true)"
-                   value="@(queryMode)"
+    @if (disableSettingsFeature is false)
+    {
+        <div class="d-flex align-items-center">
+            <div id="questionHelp" class="form-text text-start flex-fill d-none d-sm-block">@Localization["InputHelpText"]</div>
+            <div class="form-check form-switch ms-auto">
+                <input class="form-check-input"
+                       type="checkbox"
+                       role="switch"
+                       id="querySearchSwitcher"
+                       disabled="@enteredQueryModeChange"
+                       checked="@(queryMode is 0 ? false : true)"
+                       value="@(queryMode)"
                    @onchange="OnChange_SwitchQueryModeAsync">
+            </div>
+            <span data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="custom-tooltip"
+                  data-bs-title="@Localization["QuerySwitchHelpText"]">
+                <i class="fa-regular fa-circle-question"></i>
+            </span>
         </div>
-        <span data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="custom-tooltip"
-              data-bs-title="@Localization["QuerySwitchHelpText"]">
-            <i class="fa-regular fa-circle-question"></i>
-        </span>
-    </div>
+    }
 </div>
 
 <DisplayLyceumOfWisdom Answers="answers"
@@ -111,30 +117,44 @@
 
 @code {
     private Dictionary<string, string[]> emptyDictionary = new();
+    private Queue<string>? searchHistory = new Queue<string>();
     private IReadOnlyDictionary<string, string[]>? questionsWithAnswers;
     private IReadOnlyDictionary<string, string[]>? answers;
     private QueryMode queryMode;
-    private Queue<string>? searchHistory;
     private ElementReference inputReference;
+    private IJSObjectReference? settingsModule;
     private bool loadingAnswer = false;
     private bool enteredSearchMode = false;
     private bool enteredQueryModeChange = false;
     private bool isDataSupportedByLanguage = true;
+    private bool disableSettingsFeature = false;
     private string input = string.Empty;
-    private string settingsModule = "./js/settings.js";
+    private string settingsModulePath = "./js/settings.js";
     private int searchHistoryCapacity = 10;
 
     protected override async Task OnInitializedAsync()
     {
-        searchHistory = new(searchHistoryCapacity);
-        var module = await ImportModuleReferenceAsync(settingsModule);
+        var module = await ImportModuleReferenceAsync(settingsModulePath);
         if (module is not null)
         {
-            string rawMode = await module.InvokeAsync<string>("getSearchQueryMode");
-
-            if (!string.IsNullOrWhiteSpace(rawMode))
+            settingsModule = module;
+            try
             {
-                queryMode = (QueryMode)Convert.ToInt32(rawMode);
+                await module.InvokeVoidAsync("validateLocalStorageMemory");
+
+                string rawMode = await settingsModule.InvokeAsync<string>("getSearchQueryMode");
+                string jsonData = await settingsModule.InvokeAsync<string>("getSearchHistory") ?? "[]";
+                Queue<string> memorySearchHistory = JsonSerializer.Deserialize<Queue<string>>(jsonData) ?? new Queue<string>(searchHistoryCapacity);
+                searchHistory = memorySearchHistory.InitializeQueueWithCapacity(searchHistoryCapacity);
+
+                if (!string.IsNullOrWhiteSpace(rawMode))
+                {
+                    queryMode = (QueryMode)Convert.ToInt32(rawMode);
+                }
+            }
+            catch (Exception)
+            {
+                disableSettingsFeature = true;
             }
         }
 
@@ -194,7 +214,7 @@
         enteredSearchMode = false;
     }
 
-    private void ClearSearchHistory()
+    private async Task ClearSearchHistory()
     {
         if (searchHistory is null)
         {
@@ -207,6 +227,8 @@
         }
 
         searchHistory.Clear();
+
+        await UpdateSearchHistoryInMemoryAsync();
     }
 
     private void ClearInput()
@@ -236,7 +258,7 @@
                     break;
             }
 
-            var module = await ImportModuleReferenceAsync(settingsModule);
+            var module = await ImportModuleReferenceAsync(settingsModulePath);
             if (module is not null)
             {
                 await module.InvokeVoidAsync("setSearchQueryMode", queryMode);
@@ -324,12 +346,19 @@
 
             if (!searchHistory.Contains(searchInput))
             {
-                if (searchHistory.Count >= searchHistoryCapacity)
+                try
                 {
-                    searchHistory.Dequeue();
-                }
+                    if (searchHistory.Count >= searchHistoryCapacity)
+                    {
+                        searchHistory.Dequeue();
+                    }
 
-                searchHistory.Enqueue(searchInput);
+                    searchHistory.Enqueue(searchInput);
+                }
+                finally
+                {
+                    await UpdateSearchHistoryInMemoryAsync();
+                }
             }
 
             if (queryMode is 0)
@@ -358,6 +387,16 @@
 
             await inputReference.FocusAsync();
         }
+    }
+
+    private async Task UpdateSearchHistoryInMemoryAsync()
+    {
+        if (settingsModule is not null)
+        {
+            await settingsModule.InvokeVoidAsync("setSearchHistory", searchHistory);
+        }
+
+        await Task.CompletedTask;
     }
 
     protected enum QueryMode

@@ -27,6 +27,12 @@
 	  <Folder Include="wwwroot\libs\flag-icons\css\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="wwwroot\js\settings.js">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
